@@ -1,7 +1,7 @@
-from scrapy.spider import Spider
+from scrapy.spider import BaseSpider
 
-class HealthiSpider(Spider):
-    name = "dmoz"
+class HealthiSpider(BaseSpider):
+    name = "healthi"
     allowed_domains = ["dmoz.org"]
     start_urls = [
         "http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
@@ -11,3 +11,5 @@ class HealthiSpider(Spider):
     def parse(self, response):
         filename = response.url.split("/")[-2]
         open(filename, 'wb').write(response.body)
+
+#sel.xpath('//div[@id="uiSearchZip"]').xpath('ul/li/a/@href').extract()
