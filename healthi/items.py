@@ -6,6 +6,6 @@
 from scrapy.item import Item, Field
 
 class HealthiItem(Item):
-    # define the fields for your item here like:
-    # name = Field()
-    pass
+	title = Field()
+	link = Field()
+	desc = Field()
