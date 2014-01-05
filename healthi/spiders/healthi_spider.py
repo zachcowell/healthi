@@ -86,7 +86,7 @@ class HealthiSpider(CrawlSpider):
 
 	def parse_item(self, response):
 		sel = Selector(response)
-		restaurants = sel.xpath('//div[@id="divInspectionSearchResults"]/ul/li/div/ul/li/a/@href').extract()
 		titles = sel.xpath('//title/text()')
-		for r in titles:
-			print r
+		print response.url
+		#for r in titles:
+		#	print r
