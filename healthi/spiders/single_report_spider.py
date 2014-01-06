@@ -6,14 +6,14 @@ class HealthiSpider(BaseSpider):
 	name = "single"
 	allowed_domains = ["gegov.com"]
 	start_urls = [
-		"http://washington.dc.gegov.com/webadmin/dhd_431/lib/mod/inspection/paper/_paper_food_inspection_report.cfm?inspectionID=200360&wguid=1367&wgunm=sysact&wgdmn=431"
+		"http://washington.dc.gegov.com/webadmin/dhd_431/lib/mod/inspection/paper/_paper_food_inspection_report.cfm?inspectionID=200360&wguid=1367&wgunm=sysact&wgdmn=431",
+		"http://washington.dc.gegov.com/webadmin/dhd_431/lib/mod/inspection/paper/_paper_food_inspection_report.cfm?inspectionID=198305&wguid=1367&wgunm=sysact&wgdmn=431"
 	]
 
 	def parse(self, response):
 		sel = Selector(response)
-		response = sel.xpath('//div[@class="container"]/text()')
 		item = HealthiItem()
-		
+		item["response_url"] = response.request.url
 		item["establishment_name"] = sel.xpath('//div[@class="container"]/text()').extract()[1].strip()
 		item["address"] =  sel.xpath('//div[@style="float:left; width:30%;"]/text()').extract()[0].strip()
 		item["city_state_zip"] =  sel.xpath('//div[@class="container"]/text()').extract()[5].strip()
@@ -35,5 +35,15 @@ class HealthiSpider(BaseSpider):
 		item["type_of_inspection"] = sel.xpath('//table[2]//tr[7]//div[last()]/text()')[0].extract().strip()
 		item["license_period_start"] = sel.xpath('//table[2]//tr[7]//div[2]/text()')[0].extract().strip() + '/' + sel.xpath('//table[2]//tr[7]//div[3]/text()')[0].extract().strip() + '/' + sel.xpath('//table[2]//tr[7]//div[4]/text()')[0].extract().strip()
 		item["license_period_end"] = sel.xpath('//table[2]//tr[7]//div[5]/text()')[0].extract().strip() + '/' + sel.xpath('//table[2]//tr[7]//div[6]/text()')[0].extract().strip() + '/' + sel.xpath('//table[2]//tr[7]//div[7]/text()')[0].extract().strip()
+		
+		item["critical_violations"] = {}
+		item["critical_violations"]["total"] = sel.xpath('//table[@class="times"][2]/tr[2]/td[2]/text()')[0].extract().strip()
+		item["critical_violations"]["cos"] = sel.xpath('//table[@class="times"][2]/tr[2]/td[4]/text()')[0].extract().strip()
+		item["critical_violations"]["r"] = sel.xpath('//table[@class="times"][2]/tr[2]/td[6]/text()')[0].extract().strip()
 
+		item["noncritical_violations"] = {}
+		item["noncritical_violations"]["total"] = sel.xpath('//table[@class="times"][2]/tr[3]/td[2]/text()')[0].extract().strip()
+		item["noncritical_violations"]["cos"] = sel.xpath('//table[@class="times"][2]/tr[3]/td[4]/text()')[0].extract().strip()
+		item["noncritical_violations"]["r"] = sel.xpath('//table[@class="times"][2]/tr[3]/td[6]/text()')[0].extract().strip()
+		
 		return item
