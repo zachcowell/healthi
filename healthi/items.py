@@ -25,3 +25,4 @@ class HealthiItem(Item):
 	license_period_end = Field()
 	noncritical_violations = Field()
 	critical_violations = Field()
+	compliance_line_items = Field()
