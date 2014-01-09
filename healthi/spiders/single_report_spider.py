@@ -24,8 +24,11 @@ class HealthiSpider(BaseSpider):
 		for idx,x in enumerate(base):
 			item = {"line_number" : self.get_node_and_trim(x,'td[@style="width:15px;text-align:right;"]/text()',0), 
 					"compliance_status" : self.get_node_and_trim(x,'td[@style="width:18px;color:#CC0000;font-weight:bold;text-decoration:underline;"]/text()',0), 
-					"line_item" : self.get_node_and_trim(x,'td[@style=" border-right:1px solid black;width:220px;"]/text()', 0) }
+					"line_item" : self.get_node_and_trim(x,'td[@style=" border-right:1px solid black;width:220px;"]/text()', 0),
+					"cos" : x.xpath('td/div')[0].extract().find("#000000") > 0,
+					"r" : x.xpath('td/div')[1].extract().find("#000000") > 0 }
 			line_items.append(item)
+			print item["line_number"] , " ", item["compliance_status"], " ", item["cos"]
 		return line_items
 
 	def parse(self, response):
