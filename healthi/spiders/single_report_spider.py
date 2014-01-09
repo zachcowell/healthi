@@ -28,8 +28,17 @@ class HealthiSpider(BaseSpider):
 					"cos" : x.xpath('td/div')[0].extract().find("#000000") > 0,
 					"r" : x.xpath('td/div')[1].extract().find("#000000") > 0 }
 			line_items.append(item)
-			print item["line_number"] , " ", item["compliance_status"], " ", item["cos"]
 		return line_items
+
+	def get_observations(self,selector):
+		base = selector.xpath('//table[@class="times fs_10px"]/tr/td[@class="b center"]/..')
+		observations = []
+		for idx,x in enumerate(base):
+			item = {"observation" : self.get_node_and_trim(x,'td/text()',0), 
+					"dcmr" : self.get_node_and_trim(x,'td/text()',1),
+					"corrective_actions" : self.get_node_and_trim(x,'td/text()',2) }
+			observations.append(item)
+		return observations
 
 	def parse(self, response):
 		sel = Selector(response)
@@ -65,4 +74,5 @@ class HealthiSpider(BaseSpider):
 		item["noncritical_violations"]["cos"] = self.get_node_and_trim(sel,'//table[@class="times"][2]/tr[3]/td[4]/text()',0)
 		item["noncritical_violations"]["r"] = self.get_node_and_trim(sel,'//table[@class="times"][2]/tr[3]/td[6]/text()',0)
 		item["compliance_line_items"] = self.get_compliance_line_items(sel)
+		item["observations"] = self.get_observations(sel)
 		return item

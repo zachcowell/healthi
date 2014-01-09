@@ -26,3 +26,4 @@ class HealthiItem(Item):
 	noncritical_violations = Field()
 	critical_violations = Field()
 	compliance_line_items = Field()
+	observations = Field()
