@@ -17,4 +17,19 @@ angular.module('myApp.controllers', []).
         $scope.name = 'Error!'
       });
     }();
+  }).
+    controller('PestCtrl', function ($scope, $routeParams, $http) {
+      $scope.retrieveData = function(){
+      $http({
+        method: 'GET',
+        url: '/pests/'
+      }).     
+      success(function (data, status, headers, config) {
+        if (! data.length > 0) { console.log('No results for found'); }
+        else { $scope.restaurants = data }        
+      }).
+      error(function (data, status, headers, config) {
+        $scope.name = 'Error!'
+      });
+    }();
   });

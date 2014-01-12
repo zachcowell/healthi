@@ -12,6 +12,10 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/main',
       controller: 'MainCtrl'
     }).
+    when('/pestwatch', {
+      templateUrl: 'partials/pest',
+      controller: 'PestCtrl'
+    }).
     otherwise({
       redirectTo: '/'
     });
