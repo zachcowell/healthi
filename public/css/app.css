@@ -119,3 +119,5 @@ body {
 }
 
  .center-svg { display: block; margin: auto }
+
+ .nav, .pagination, .carousel a { cursor: pointer; }

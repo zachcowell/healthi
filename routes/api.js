@@ -48,6 +48,30 @@ exports.pests = function(req, res) {
 	})
 }
 
+exports.browsePests = function(req, res) {
+	var keywords = ['droppings','roach','mice','rodent','feces']
+	var returned_fields = {
+		response_url : 1,
+		establishment_name: 1,
+		address: 1,
+		city_state_zip: 1,
+		date_of_inspection: 1,
+		risk_category: 1,
+		type_of_inspection: 1,
+		noncritical_violations: 1,
+		critical_violations: 1,
+		observations : 1
+	};
+
+	var q = Inspections.find({},returned_fields).or(getOrObject(keywords));
+
+	q.exec(function (err, data) {
+	  if (err) return handleError(err);
+	  console.log(data.length);
+	  res.send(data);
+	})
+}
+
 exports.latest = function(req, res) {
 	var q = Inspections.find({})
 	.sort({'date_of_inspection': -1})

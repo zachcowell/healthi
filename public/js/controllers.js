@@ -19,6 +19,7 @@ angular.module('myApp.controllers', []).
     }();
   }).
     controller('PestCtrl', function ($scope, $routeParams, $http) {
+      $scope.oneAtATime = true;
       $scope.retrieveData = function(){
       $http({
         method: 'GET',
@@ -26,7 +27,7 @@ angular.module('myApp.controllers', []).
       }).     
       success(function (data, status, headers, config) {
         if (! data.length > 0) { console.log('No results for found'); }
-        else { $scope.restaurants = data }        
+        else { $scope.restaurants = data }      
       }).
       error(function (data, status, headers, config) {
         $scope.name = 'Error!'

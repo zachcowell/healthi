@@ -4,7 +4,8 @@
 
 angular.module('myApp', [
   'myApp.controllers',
-  'ngRoute'
+  'ngRoute',
+  'ui.bootstrap'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
