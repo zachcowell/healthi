@@ -1,0 +1,20 @@
+
+.row
+	.col-sm-offset-3.col-6.col-sm-6.col-lg-6
+		h2.text-center Request for Information
+		form.form-horizontal(role='form')
+			.form-group
+				label(for='inputEmail' class='col-sm-2 control-label') Email
+				.col-sm-10
+					input.form-control.input-lg(disabled='disabled' type='text' id='inputEmail' placeholder='Email')
+			.form-group
+				label(for='inputQuestion' class='col-sm-2 control-label') Question
+				.col-sm-10
+					textarea.form-control.input-lg(disabled='disabled' type='text' id='inputQuestion' placeholder='Question')
+			.form-group
+				.col-sm-offset-2.col-sm-10.text-center
+					button(type='button' disabled='disabled' class='btn btn-primary btn-lg') Submit
+.row
+	.col-12.col-sm-12.col-lg-12
+		h3.text-center Form disabled. For inquiries, email 
+			a(href='mailto:dev@zachcowell.com') dev@zachcowell.com

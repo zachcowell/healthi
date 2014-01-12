@@ -27,13 +27,14 @@ app.configure(function(){
 if (app.get('env') === 'development') { app.use(express.errorHandler()); }
 if (app.get('env') === 'production') { };
 
-//app.listen(3000);
 
-app.get('/list/', api.list);
 app.get('/', routes.index);
-//app.get('/partials/:name', routes.partials);
-// redirect all others to the index (HTML5 history)
+app.get('/top20', api.top20);
+app.get('/latest', api.latest);
+app.get('/partials/:name', routes.partials);
 app.get('*', routes.index);
+
+// redirect all others to the index (HTML5 history)
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });

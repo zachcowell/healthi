@@ -1,0 +1,9 @@
+.row(ng-controller='NearCtrl')
+    .col-12.col-sm-12.col-lg-12
+        h1 Users Near Me
+    .col-6.col-sm-12.col-lg-6
+        a(ng-repeat='t in tweets' href='https://twitter.com/{{t.user.screen_name}}' target='_blank')
+            img(ng-src='{{t.user.profile_image_url}}' ng-mouseover='changeTweetDisplay(t)' class='fade-in one')
+    .col-6.col-sm-12.col-lg-6
+        button.btn.btn-success(type='button' ng-click='retrieveData()') Render
+        leaflet(width='100%' height='530px' center='dc' markers='markers')
