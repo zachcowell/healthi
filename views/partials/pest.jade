@@ -1,0 +1,17 @@
+.row(ng-controller='PestCtrl')
+    .col-12.col-sm-12.col-lg-12
+        h1 Worst restaurants in Washington DC
+    .col-6.col-sm-12.col-lg-6
+        table.table
+            thead
+                th Establishment Name
+                th Critical Violations
+                th Noncritical Violations
+                th URL
+            tbody
+                tr(ng-repeat='r in restaurants')
+                    td {{r.establishment_name}}
+                    td zzzz {{r.critical_violations.total}}
+                    td xxxx {{r.noncritical_violations.total}}
+                    td 
+                        a(href='{{r.response_url}}') URL
