@@ -19,7 +19,15 @@ angular.module('myApp.controllers', []).
     }();
   }).
     controller('PestCtrl', function ($scope, $routeParams, $http) {
-      $scope.oneAtATime = true;
+      $scope.currentPage = 0;
+      $scope.pageSize = 10;
+      $scope.restaurants = [];
+      $scope.filteredItems = $scope.restaurants;
+      $scope.numberOfPages=function(){
+          console.log($scope.filteredItems);
+          return Math.ceil($scope.filteredItems.length/$scope.pageSize);                
+      }
+
       $scope.retrieveData = function(){
       $http({
         method: 'GET',

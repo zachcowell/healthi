@@ -49,7 +49,7 @@ exports.pests = function(req, res) {
 }
 
 exports.browsePests = function(req, res) {
-	var keywords = ['droppings','roach','mice','rodent','feces']
+	var keywords = ['dropping','roach','mice','rodent','feces','mouse']
 	var returned_fields = {
 		response_url : 1,
 		establishment_name: 1,
@@ -63,11 +63,14 @@ exports.browsePests = function(req, res) {
 		observations : 1
 	};
 
-	var q = Inspections.find({},returned_fields).or(getOrObject(keywords));
+	var q = Inspections.find({},returned_fields)
+		.or(getOrObject(keywords))
+		.sort({'date_of_inspection': -1});
+		//.limit(20);
 
 	q.exec(function (err, data) {
 	  if (err) return handleError(err);
-	  console.log(data.length);
+	  //console.log(data.length);
 	  res.send(data);
 	})
 }

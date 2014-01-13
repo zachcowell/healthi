@@ -4,6 +4,7 @@
 
 angular.module('myApp', [
   'myApp.controllers',
+  'myApp.filters',
   'ngRoute',
   'ui.bootstrap'
 ]).

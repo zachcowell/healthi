@@ -1,7 +1,30 @@
 .row(ng-controller='PestCtrl')
     .col-12.col-sm-12.col-lg-12
-        h1 Worst restaurants in Washington DC
-    .col-6.col-sm-12.col-lg-6
-        accordion(close-others='oneAtATime')
-            accordion-group(ng-repeat='r in restaurants' heading='hehe')
-                p wat
+        h1 Latest pest violations
+    .col-12.col-sm-12.col-lg-12
+        input.form-control.input-lg(type='text' placeholder='Enter search terms here' ng-model='searchString')
+        accordion(close-others='true')
+            accordion-group(ng-repeat='r in filteredItems = (restaurants | filter:searchString | startFrom:currentPage*pageSize | limitTo:pageSize)' heading='{{r.establishment_name}} [{{r.date_of_inspection | date:"MM/dd/yyyy"}}]')
+                a.btn.btn-danger(target='_blank' href='{{r.response_url}}') View Full Report
+                dl.dl-horizontal(style='margin-top:30px;')
+                    dt Date of Inspection
+                    dd {{r.date_of_inspection | date:"MM/dd/yyyy"}}
+                    dt Address
+                    dd 
+                        a(target='_blank' href='http://maps.google.com/?q={{r.address}} {{r.city_state_zip}}') {{r.address}} {{r.city_state_zip}}
+                    dt Type of Inspection
+                    dd {{r.type_of_inspection}}
+                    dt Risk Category (1-5)
+                    dd {{r.risk_category}}
+                    dt Critical Violations
+                    dd {{r.critical_violations.total}} ({{r.critical_violations.cos}} corrected on site, {{r.critical_violations.r}} repeat offenses)
+                    dt Noncritical Violations
+                    dd {{r.noncritical_violations.total}} ({{r.noncritical_violations.cos}} corrected on site, {{r.noncritical_violations.r}} repeat offenses)
+                table.table
+                    thead
+                        th Inspector observations
+                    tr(ng-repeat='obs in r.observations') 
+                        td {{obs.observation}}
+            button(ng-disabled='currentPage == 0' ng-click='currentPage=currentPage-1') Previous
+            {{currentPage+1}}/{{numberOfPages()}}
+            button(ng-disabled='currentPage >= filteredItems.length/pageSize - 1' ng-click='currentPage=currentPage+1') Next

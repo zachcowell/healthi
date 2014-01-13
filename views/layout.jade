@@ -4,8 +4,6 @@ html(ng-app="myApp")
     meta(charset='utf8')
     base(href='/')
     title DC Dashboard
-    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js')
-    script(src='js/lib/ui-bootstrap-tpls-0.9.0.min.js')
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/app.css')
     link(href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet")
@@ -17,7 +15,7 @@ html(ng-app="myApp")
             li
                 a(href='/') Home
             li
-                a(href='near') Search
+                a(href='pestwatch') Pest Related
             li
                 a(href='about') About
             li
@@ -25,8 +23,10 @@ html(ng-app="myApp")
         block content
 
     script(src='js/lib/underscore-min.js')
-
+    script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js')
+    script(src='js/lib/ui-bootstrap-tpls-0.9.0.min.js')
     script(src='js/lib/angular-route.min.js')
     script(src='js/app.js')
     script(src='js/controllers.js')
+    script(src='js/filters.js')
 
