@@ -3,7 +3,7 @@ var _ = require('underscore');
 
 exports.top20 = function(req, res) {
 	var q = Inspections.find({})
-	//.sort({'noncritical_violations.total': -1})
+	.sort({'critical_violations.total': -1})
 	.limit(20);
 	q.exec(function (err, data) {
 	  if (err) return handleError(err);

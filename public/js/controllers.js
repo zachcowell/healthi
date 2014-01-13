@@ -22,9 +22,8 @@ angular.module('myApp.controllers', []).
       $scope.currentPage = 0;
       $scope.pageSize = 10;
       $scope.restaurants = [];
-      $scope.filteredItems = $scope.restaurants;
+      $scope.filteredItems = [];
       $scope.numberOfPages=function(){
-          console.log($scope.filteredItems);
           return Math.ceil($scope.filteredItems.length/$scope.pageSize);                
       }
 
@@ -35,7 +34,7 @@ angular.module('myApp.controllers', []).
       }).     
       success(function (data, status, headers, config) {
         if (! data.length > 0) { console.log('No results for found'); }
-        else { $scope.restaurants = data }      
+        else { $scope.restaurants = data; $scope.filteredItems = $scope.restaurants; }      
       }).
       error(function (data, status, headers, config) {
         $scope.name = 'Error!'
