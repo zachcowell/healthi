@@ -64,8 +64,8 @@ exports.browsePests = function(req, res) {
 	};
 
 	var q = Inspections.find({},returned_fields)
-		.or(getOrObject(keywords))
-		.sort({'date_of_inspection': -1});
+		.or(getOrObject(keywords));
+		//.sort({'date_of_inspection': -1});
 		//.limit(20);
 
 	q.exec(function (err, data) {

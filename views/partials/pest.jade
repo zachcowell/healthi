@@ -4,7 +4,7 @@
     .col-12.col-sm-12.col-lg-12
         input.form-control.input-lg(type='text' placeholder='Enter search terms here' ng-model='searchString')
         accordion(close-others='true')
-            accordion-group(ng-repeat='r in filteredItems = (restaurants | filter:searchString) | startFrom:currentPage*pageSize | limitTo:pageSize' heading='{{r.establishment_name}} [{{r.date_of_inspection | date:"MM/dd/yyyy"}}]')
+            accordion-group(ng-repeat='r in filteredItems = (restaurants | orderBy:"date_of_inspection":true | filter:searchString) | startFrom:currentPage*pageSize | limitTo:pageSize' heading='{{r.establishment_name}} [{{r.date_of_inspection | date:"MM/dd/yyyy"}}]')
                 a.btn.btn-danger(target='_blank' href='{{r.response_url}}') View Full Report
                 dl.dl-horizontal(style='margin-top:30px;')
                     dt Date of Inspection
