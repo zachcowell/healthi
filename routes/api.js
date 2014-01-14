@@ -63,10 +63,10 @@ exports.browsePests = function(req, res) {
 		observations : 1
 	};
 	
-	var q = Inspections.find({},returned_fields)
-		.or(getOrObject(req.body.keywords));
-		//.sort({'date_of_inspection': -1});
-		//.limit(20);
+	var q = Inspections.find({},returned_fields).limit(200);
+	if (req.body.keywords.length > 0) q = q.or(getOrObject(req.body.keywords));
+
+	//.limit(20);
 
 	q.exec(function (err, data) {
 	  if (err) console.log(err);

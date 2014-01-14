@@ -1,6 +1,6 @@
 .row(ng-controller='PestCtrl')
     .col-12.col-sm-12.col-lg-12
-        h1 Latest pest violations
+        h1 Latest pest violations {{restaurants.length}}
     .col-12.col-sm-12.col-lg-12
         input.form-control.input-lg(type='text' placeholder='Enter search terms here' ng-model='searchString')
         accordion(close-others='true')
@@ -26,5 +26,5 @@
                     tr(ng-repeat='obs in r.observations') 
                         td {{obs.observation}}
         button.btn-primary(ng-disabled='currentPage == 0' ng-click='currentPage=currentPage-1') Previous
-        //{{currentPage+1}}/{{numberOfPages()}}
+        {{currentPage+1}}/{{numberOfPages()}}
         button.btn-primary(ng-disabled='currentPage >= filteredItems.length/pageSize - 1' ng-click='currentPage=currentPage+1') Next
