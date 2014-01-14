@@ -1,8 +1,8 @@
 .row(ng-controller='PestCtrl')
     .col-12.col-sm-12.col-lg-12
         h1 Latest pest violations {{restaurants.length}}
-    .col-12.col-sm-12.col-lg-12
-        input.form-control.input-lg(type='text' placeholder='Enter search terms here' ng-model='searchString')
+    .col-8.col-sm-8.col-lg-8
+        input.form-control.input-lg(type='text' placeholder='Restaurant name filter' ng-model='searchString')
         accordion(close-others='true')
             accordion-group(ng-repeat='r in filteredItems = (restaurants | orderBy:"date_of_inspection":true | filter:searchString) | startFrom:currentPage*pageSize | limitTo:pageSize' heading='{{r.establishment_name}} [{{r.date_of_inspection | date:"MM/dd/yyyy"}}]')
                 a.btn.btn-danger(target='_blank' href='{{r.response_url}}') View Full Report
@@ -28,3 +28,10 @@
         button.btn-primary(ng-disabled='currentPage == 0' ng-click='currentPage=currentPage-1') Previous
         {{currentPage+1}}/{{numberOfPages()}}
         button.btn-primary(ng-disabled='currentPage >= filteredItems.length/pageSize - 1' ng-click='currentPage=currentPage+1') Next
+    .col-4.col-sm-4.col-lg-4
+        .well
+            form(role='form')
+              .form-group
+                label(for='inputName') Keywords
+                input#inputName.form-control.input-lg(placeholder='Keywords')
+              button.btn.btn-default(type='submit') Submit
