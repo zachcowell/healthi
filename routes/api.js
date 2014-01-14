@@ -49,7 +49,7 @@ exports.pests = function(req, res) {
 }
 
 exports.browsePests = function(req, res) {
-	var keywords = ['dropping','roach','mice','rodent','feces','mouse']
+	//var keywords = ['dropping','roach','mice','rodent','feces','mouse']
 	var returned_fields = {
 		response_url : 1,
 		establishment_name: 1,
@@ -62,14 +62,14 @@ exports.browsePests = function(req, res) {
 		critical_violations: 1,
 		observations : 1
 	};
-
+	
 	var q = Inspections.find({},returned_fields)
-		.or(getOrObject(keywords));
+		.or(getOrObject(req.body.keywords));
 		//.sort({'date_of_inspection': -1});
 		//.limit(20);
 
 	q.exec(function (err, data) {
-	  if (err) return handleError(err);
+	  if (err) console.log(err);
 	  //console.log(data.length);
 	  res.send(data);
 	})
@@ -83,6 +83,10 @@ exports.latest = function(req, res) {
 	  if (err) return handleError(err);
 	  res.send(data);
 	})
+}
+
+exports.restaurantNames = function(req, res) {
+	
 }
 
 exports.name = function(req, res) {

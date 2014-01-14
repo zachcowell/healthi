@@ -11,7 +11,9 @@ angular.module('myApp.controllers', []).
       }).     
       success(function (data, status, headers, config) {
         if (! data.length > 0) { console.log('No results for found'); }
-        else { $scope.restaurants = data }        
+        else { 
+          $scope.restaurants = data 
+        }        
       }).
       error(function (data, status, headers, config) {
         $scope.name = 'Error!'
@@ -28,10 +30,8 @@ angular.module('myApp.controllers', []).
       }
 
       $scope.retrieveData = function(){
-      $http({
-        method: 'GET',
-        url: '/pests/'
-      }).     
+      var words = ['dropping','roach','mice','rodent','feces','mouse'];
+      $http.post('/pests/',  {keywords: words}).     
       success(function (data, status, headers, config) {
         if (! data.length > 0) { console.log('No results for found'); }
         else { $scope.restaurants = data; $scope.filteredItems = $scope.restaurants; }      

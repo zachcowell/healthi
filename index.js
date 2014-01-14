@@ -31,8 +31,8 @@ if (app.get('env') === 'production') { };
 app.get('/', routes.index);
 app.get('/top20', api.top20);
 app.get('/latest', api.latest);
-app.get('/pests/:name', api.pests);
-app.get('/pests', api.browsePests)
+app.post('/pests', api.browsePests);
+//app.post('/pests', api.browsePests)
 app.get('/partials/:name', routes.partials);
 app.get('*', routes.index);
 
