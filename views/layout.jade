@@ -3,23 +3,26 @@ html(ng-app="myApp")
   head
     meta(charset='utf8')
     base(href='/')
-    title DC Dashboard
+    title Healthi DC
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/app.css')
     link(href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet")
   body
+    .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+        .container
+            .navbar-header
+            a.navbar-brand(href='#') Healthi DC
+            .collapse.navbar-collapse
+                ul.nav.navbar-nav
+                    li
+                        a(href='/') Home
+                    li
+                        a(href='pestwatch') Pest Related
+                    li
+                        a(href='about') About
+                    li
+                        a(href='contact') Contact
     .container
-        .masthead
-        h3.text-muted Health Inspections
-        ul.nav.nav-justified
-            li
-                a(href='/') Home
-            li
-                a(href='pestwatch') Pest Related
-            li
-                a(href='about') About
-            li
-                a(href='contact') Contact
         block content
 
     script(src='js/lib/underscore-min.js')
