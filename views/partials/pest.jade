@@ -10,7 +10,7 @@
                 th Critical Violations
                 th Noncritical Violations
                 th Report URL
-            tr(ng-repeat='r in restaurants')
+            tr(ng-repeat='r in filteredItems = (restaurants | orderBy:"date_of_inspection":true | filter:searchString) | startFrom:currentPage*pageSize | limitTo:pageSize')
                 td {{r.establishment_name}}
                 td {{r.date_of_inspection | date:"MM/dd/yyyy"}}
                 td 
