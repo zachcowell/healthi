@@ -22,12 +22,20 @@ angular.module('myApp.controllers', []).
   }).
     controller('PestCtrl', function ($scope, $routeParams, $http) {
       $scope.currentPage = 0;
-      $scope.pageSize = 10;
+      $scope.pageSize = 6;
       $scope.restaurants = [];
       $scope.filteredItems = [];
       $scope.numberOfPages=function(){
           return Math.ceil($scope.filteredItems.length/$scope.pageSize);                
       }
+
+      $scope.dc = { lat: 38.891121, lng: -77.041481, zoom: 12 };
+      $scope.mapDefaults = {
+        tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
+        zoomControlPosition: 'topright',
+        tileLayerOptions: { opacity: 0.9, detectRetina: true, reuseTiles: true },
+        scrollWheelZoom: false
+      };
 
       $scope.retrieveData = function(){
       var words = ['dropping','roach','mice','rodent','feces','mouse'];

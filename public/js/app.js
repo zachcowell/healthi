@@ -6,7 +6,8 @@ angular.module('myApp', [
   'myApp.controllers',
   'myApp.filters',
   'ngRoute',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'leaflet-directive'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
