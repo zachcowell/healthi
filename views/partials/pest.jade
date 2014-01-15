@@ -1,23 +1,25 @@
 .row(ng-controller='PestCtrl')
     .col-12.col-sm-12.col-lg-12
         h1 Latest pest violations {{restaurants.length}}
-    .col-12.col-sm-12.col-lg-12
-        table.table(ng-table='tableParams' show-filter='true')
+    .col-6.col-sm-6.col-lg-6
+        table.table.table-striped
             thead
-                th Establishment Name
-                th Date 
-                th Address
-                th Critical Violations
-                th Noncritical Violations
-                th Report URL
+                tr
+                    th #
+                    th Establishment
+                    th Date 
+                    th Violations
             tr(ng-repeat='r in filteredItems = (restaurants | orderBy:"date_of_inspection":true | filter:searchString) | startFrom:currentPage*pageSize | limitTo:pageSize')
-                td {{r.establishment_name}}
-                td {{r.date_of_inspection | date:"MM/dd/yyyy"}}
+                td {{$index+1}}
                 td 
+                    strong {{r.establishment_name}}
+                    br
                     a(target='_blank' href='http://maps.google.com/?q={{r.address}} {{r.city_state_zip}}') {{r.address}} 
                         br 
                         {{r.city_state_zip}}
-                td {{r.critical_violations.total}} 
-                td {{r.noncritical_violations.total}}
-                td
-                    a.btn.btn-primary(target='_blank' href='{{r.response_url}}') View Full Report
+                td {{r.date_of_inspection | date:"MM/dd/yyyy"}}
+                    br
+                    a.btn.btn-primary.btn-xs(target='_blank' href='{{r.response_url}}') Full Report
+                td {{r.critical_violations.total}} Critical
+                    br
+                    {{r.noncritical_violations.total}} Non-critical
