@@ -1,0 +1,1 @@
+db.inspections.remove({establishment_name: ""})
