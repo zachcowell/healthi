@@ -1,17 +1,55 @@
-.row(ng-controller='MainCtrl')
+.row
+    .col-2.col-sm-2.col-lg-2
+        h4 Sort By
+        ul
+            li Name
+            li Date
+            li Most Violations
+            li Least Violations
+    .col-2.col-sm-2.col-lg-2
+        h4 Zip Code
+        ul
+            li 20024
+            li 20025
+            li 20026
+    .col-2.col-sm-2.col-lg-2
+        h4 Zip Code
+        ul
+            li 20024
+            li 20025
+            li 20026
+    .col-2.col-sm-2.col-lg-2
+        h4 Zip Code
+        ul
+            li 20024
+            li 20025
+            li 20026
+hr
+.row(ng-controller='PestCtrl')
     .col-12.col-sm-12.col-lg-12
-        h1 Worst restaurants in Washington DC
-    .col-6.col-sm-12.col-lg-6
-        table.table
+        h1 Latest pest violations {{restaurants.length}}
+    .col-6.col-sm-6.col-lg-6
+        table.table.table-striped
             thead
-                th Establishment Name
-                th Critical Violations
-                th Noncritical Violations
-                th URL
-            tbody
-                tr(ng-repeat='r in restaurants')
-                    td {{r.establishment_name}}
-                    td {{r.critical_violations.total}}
-                    td {{r.noncritical_violations.total}}
-                    td 
-                        a(href='{{r.response_url}}') URL
+                tr
+                    th #
+                    th Establishment
+                    th Date 
+                    th Violations
+            tr(ng-repeat='r in restaurants | orderBy:"date_of_inspection":true | startFrom:currentPage*maxSize | limitTo:maxSize')
+                td {{$index+1}}
+                td 
+                    strong {{r.establishment_name}}
+                    br
+                    a(target='_blank' href='http://maps.google.com/?q={{r.address}} {{r.city_state_zip}}') {{r.address}} 
+                        br 
+                        {{r.city_state_zip}}
+                td {{r.date_of_inspection | date:"MM/dd/yyyy"}}
+                    br
+                    a.btn.btn-primary.btn-xs(target='_blank' href='{{r.response_url}}') Full Report
+                td {{r.critical_violations.total}} Critical
+                    br
+                    {{r.noncritical_violations.total}} Non-critical
+        pagination(total-items='restaurants.length' page='currentPage' max-size='maxSize' class='pagination-sm')
+    .col-6.col-sm-6.col-lg-6
+        leaflet(width='100%' height='519px' center='dc')

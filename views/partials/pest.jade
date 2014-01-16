@@ -9,7 +9,7 @@
                     th Establishment
                     th Date 
                     th Violations
-            tr(ng-repeat='r in filteredItems = (restaurants | orderBy:"date_of_inspection":true | filter:searchString) | startFrom:currentPage*pageSize | limitTo:pageSize')
+            tr(ng-repeat='r in filteredItems = (restaurants | orderBy:"date_of_inspection":true )')
                 td {{$index+1}}
                 td 
                     strong {{r.establishment_name}}

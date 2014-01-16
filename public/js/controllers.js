@@ -21,13 +21,15 @@ angular.module('myApp.controllers', []).
     }();
   }).
     controller('PestCtrl', function ($scope, $routeParams, $http) {
-      $scope.currentPage = 0;
-      $scope.pageSize = 6;
+
       $scope.restaurants = [];
-      $scope.filteredItems = [];
-      $scope.numberOfPages=function(){
-          return Math.ceil($scope.filteredItems.length/$scope.pageSize);                
-      }
+
+      $scope.totalItems = $scope.restaurants.length;
+      $scope.currentPage = 0;
+      $scope.maxSize = 6;
+      
+      $scope.setPage = function (pageNo) { $scope.currentPage = pageNo; };
+
 
       $scope.dc = { lat: 38.891121, lng: -77.041481, zoom: 12 };
       $scope.mapDefaults = {

@@ -15,11 +15,13 @@ html(ng-app="myApp")
             .navbar-header
             a.navbar-brand(href='#') Healthi DC
             .collapse.navbar-collapse
+                form.navbar-form.navbar-left(role='form')
+                    .form-group
+                        input.form-control(type='text' placeholder='Restaurant')
+                    button.btn.btn-success(type='submit') Search
                 ul.nav.navbar-nav
                     li
-                        a(href='/') Home
-                    li
-                        a(href='pestwatch') Pest Related
+                        a(href='/') Top Offenders
                     li
                         a(href='about') About
                     li
