@@ -4,32 +4,13 @@
 
 angular.module('myApp.controllers', []).
   controller('MainCtrl', function ($scope, $routeParams, $http) {
-      $scope.retrieveData = function(){
-      $http({
-        method: 'GET',
-        url: '/top20/'
-      }).     
-      success(function (data, status, headers, config) {
-        if (! data.length > 0) { console.log('No results for found'); }
-        else { 
-          $scope.restaurants = data 
-        }        
-      }).
-      error(function (data, status, headers, config) {
-        $scope.name = 'Error!'
-      });
-    }();
-  }).
-    controller('PestCtrl', function ($scope, $routeParams, $http) {
-
+      $scope.isCollapsed= false;
       $scope.restaurants = [];
-
       $scope.totalItems = $scope.restaurants.length;
       $scope.currentPage = 0;
       $scope.maxSize = 6;
       
       $scope.setPage = function (pageNo) { $scope.currentPage = pageNo; };
-
 
       $scope.dc = { lat: 38.891121, lng: -77.041481, zoom: 12 };
       $scope.mapDefaults = {

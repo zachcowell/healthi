@@ -1,34 +1,26 @@
-.row
+button.btn.btn-default(ng-click='isCollapsed = !isCollapsed') Hide Filters
+.row(collapse='isCollapsed')
     .col-2.col-sm-2.col-lg-2
-        h4 Sort By
+        h5 Sort By
         ul
             li Name
             li Date
             li Most Violations
             li Least Violations
     .col-2.col-sm-2.col-lg-2
-        h4 Zip Code
+        h5 Zip Code
         ul
             li 20024
             li 20025
             li 20026
     .col-2.col-sm-2.col-lg-2
-        h4 Zip Code
+        h5 Quick Filter
         ul
-            li 20024
-            li 20025
-            li 20026
-    .col-2.col-sm-2.col-lg-2
-        h4 Zip Code
-        ul
-            li 20024
-            li 20025
-            li 20026
+            li Pest Reports
+            li Cleanest Spots
 hr
-.row(ng-controller='PestCtrl')
-    .col-12.col-sm-12.col-lg-12
-        h1 Latest pest violations {{restaurants.length}}
-    .col-6.col-sm-6.col-lg-6
+.row
+    .col-8.col-sm-8.col-lg-8
         table.table.table-striped
             thead
                 tr
@@ -50,6 +42,6 @@ hr
                 td {{r.critical_violations.total}} Critical
                     br
                     {{r.noncritical_violations.total}} Non-critical
-        pagination(total-items='restaurants.length' page='currentPage' max-size='maxSize' class='pagination-sm')
-    .col-6.col-sm-6.col-lg-6
+        pagination(total-items='restaurants.length' page='currentPage' max-size='maxSize' class='pagination-lg')
+    .col-4.col-sm-4.col-lg-4
         leaflet(width='100%' height='519px' center='dc')
