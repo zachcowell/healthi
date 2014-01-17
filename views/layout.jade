@@ -17,8 +17,9 @@ html(ng-app="myApp")
             .collapse.navbar-collapse
                 form.navbar-form.navbar-left(role='form')
                     .form-group
-                        input.form-control(type='text' placeholder='Restaurant' ng-model='searchString')
-                    button.btn.btn-success(ng-click='go("/"+searchString)') Search
+                        input.form-control(type='text' placeholder='Restaurant' ng-model='searchString' typeahead='establishment_name for establishment_name in getLocation($viewValue) | filter:$viewValue' typeahead-loading='loadingLocations')
+                        i.glyphicon.glyphicon-refresh(ng-show='loadingLocations')
+                    button.btn.btn-success(ng-click='go("/search/"+searchString)') Search
                 ul.nav.navbar-nav
                     li
                         a(href='/') Top Offenders

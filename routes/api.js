@@ -78,7 +78,18 @@ exports.latest = function(req, res) {
 }
 
 exports.restaurantNames = function(req, res) {
-	
+		var returned_fields = {
+		establishment_name: 1,
+		address: 1,
+		city_state_zip: 1
+	};
+	if (undefined != req.body.establishment_name) var q = Inspections.find({establishment_name : new RegExp(req.body.establishment_name,'i')},returned_fields).limit(40);
+	else var q = Inspections.find({},returned_fields).limit(40); 
+
+	q.exec(function (err, data) {
+	  if (err) console.log(err);
+	  res.send(data);
+	})
 }
 
 exports.name = function(req, res) {

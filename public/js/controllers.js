@@ -1,10 +1,20 @@
 'use strict';
 
-/* Controllers */
-
 angular.module('myApp.controllers', [])
   .controller('HeaderCtrl', function ($scope, $location, $routeParams, $http) {
     $scope.go = function (path) { $location.path( path ); };
+
+    $scope.getLocation = function(val) {
+        return $http.post('/restaurantNames', {
+            establishment_name: val
+        }).then(function(res){
+          var establishments = [];
+          angular.forEach(res.data, function(item){
+            establishments.push(item.establishment_name);
+          });
+          return establishments;
+        });
+      };
   })
   .controller('MainCtrl', function ($scope, $routeParams, $http) {
   

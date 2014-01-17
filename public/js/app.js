@@ -18,10 +18,10 @@ config(function ($routeProvider, $locationProvider) {
     when('/', {
       templateUrl: 'partials/main',
       controller: 'MainCtrl'
-    }).
+    });/*.
     otherwise({
       redirectTo: '/'
-    });
+    })*/;
 
   $locationProvider.html5Mode(true);
 });
