@@ -2,10 +2,14 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []).
-  controller('HeaderCtrl', function ($scope, $location, $routeParams, $http) {
+angular.module('myApp.controllers', [])
+  .controller('HeaderCtrl', function ($scope, $location, $routeParams, $http) {
     $scope.go = function (path) { $location.path( path ); };
-}).controller('MainCtrl', function ($scope, $routeParams, $http) {
+  })
+  .controller('MainCtrl', function ($scope, $routeParams, $http) {
+  
+  })
+  .controller('SearchCtrl', function ($scope, $routeParams, $http) {
       $scope.isCollapsed= false;
       $scope.restaurants = [];
       $scope.totalItems = $scope.restaurants.length;
