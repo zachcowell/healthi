@@ -18,6 +18,29 @@ var getOrObject = function (keywords){
 }
 
 
+exports.search = function(req, res) {
+	var returned_fields = {
+		response_url : 1,
+		establishment_name: 1,
+		address: 1,
+		city_state_zip: 1,
+		date_of_inspection: 1,
+		//risk_category: 1,
+		type_of_inspection: 1,
+		noncritical_violations: 1,
+		critical_violations: 1,
+		//observations : 1
+	};
+	
+	if (undefined != req.body.establishment_name) var q = Inspections.find({establishment_name : new RegExp(req.body.establishment_name,'i')},returned_fields).limit(40);
+	else var q = Inspections.find({},returned_fields).limit(40); 
+
+	q.exec(function (err, data) {
+	  if (err) console.log(err);
+	  res.send(data);
+	})
+}
+
 exports.pests = function(req, res) {
 	var returned_fields = {
 		response_url : 1,
@@ -25,11 +48,11 @@ exports.pests = function(req, res) {
 		address: 1,
 		city_state_zip: 1,
 		date_of_inspection: 1,
-		risk_category: 1,
+		//risk_category: 1,
 		type_of_inspection: 1,
 		noncritical_violations: 1,
 		critical_violations: 1,
-		observations : 1
+		//observations : 1
 	};
 	
 	var q = Inspections.find({},returned_fields).limit(200);

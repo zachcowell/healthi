@@ -11,13 +11,13 @@ angular.module('myApp', [
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
-    when('/', {
+    when('/:searchterm', {
       templateUrl: 'partials/main',
       controller: 'MainCtrl'
-    }).
+    });/*.
     otherwise({
       redirectTo: '/'
-    });
+    });*/
 
   $locationProvider.html5Mode(true);
 });

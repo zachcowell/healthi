@@ -21,14 +21,22 @@ angular.module('myApp.controllers', []).
       };
 
       $scope.retrieveData = function(){
-      var words = ['dropping','roach','mice','rodent','feces','mouse'];
-      $http.post('/pests/',  {keywords: words}).     
-      success(function (data, status, headers, config) {
-        if (! data.length > 0) { console.log('No results for found'); }
-        else { $scope.restaurants = data; $scope.filteredItems = $scope.restaurants; }      
-      }).
-      error(function (data, status, headers, config) {
-        $scope.name = 'Error!'
-      });
+        $http.post('/find/',  {establishment_name: $routeParams.searchterm}).     
+        success(function (data, status, headers, config) {
+          if (! data.length > 0) { console.log('No results for found'); }
+          else { $scope.restaurants = data; $scope.filteredItems = $scope.restaurants; }      
+        }).
+        error(function (data, status, headers, config) {
+          $scope.name = 'Error!'
+        });
+        /*var words = ['dropping','roach','mice','rodent','feces','mouse'];
+        $http.post('/pests/',  {keywords: words}).     
+        success(function (data, status, headers, config) {
+          if (! data.length > 0) { console.log('No results for found'); }
+          else { $scope.restaurants = data; $scope.filteredItems = $scope.restaurants; }      
+        }).
+        error(function (data, status, headers, config) {
+          $scope.name = 'Error!'
+        });*/
     }();
   });
