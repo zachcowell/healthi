@@ -3,7 +3,9 @@
 /* Controllers */
 
 angular.module('myApp.controllers', []).
-  controller('MainCtrl', function ($scope, $routeParams, $http) {
+  controller('HeaderCtrl', function ($scope, $location, $routeParams, $http) {
+    $scope.go = function (path) { $location.path( path ); };
+}).controller('MainCtrl', function ($scope, $routeParams, $http) {
       $scope.isCollapsed= false;
       $scope.restaurants = [];
       $scope.totalItems = $scope.restaurants.length;

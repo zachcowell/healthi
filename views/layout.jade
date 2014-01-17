@@ -11,14 +11,14 @@ html(ng-app="myApp")
     link(href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet")
   body
     .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
-        .container
+        .container(ng-controller='HeaderCtrl')
             .navbar-header
             a.navbar-brand(href='#') Healthi DC
             .collapse.navbar-collapse
                 form.navbar-form.navbar-left(role='form')
                     .form-group
-                        input.form-control(type='text' placeholder='Restaurant')
-                    button.btn.btn-success(type='submit') Search
+                        input.form-control(type='text' placeholder='Restaurant' ng-model='searchString')
+                    button.btn.btn-success(ng-click='go("/"+searchString)') Search
                 ul.nav.navbar-nav
                     li
                         a(href='/') Top Offenders
