@@ -1,0 +1,26 @@
+.row
+    .col-8.col-sm-8.col-lg-8
+        table.table.table-striped
+            thead
+                tr
+                    th #
+                    th Establishment
+                    th Date 
+                    th Violations
+            tr(ng-repeat='r in restaurants | orderBy:"date_of_inspection":true | startFrom:currentPage*maxSize | limitTo:maxSize')
+                td {{$index+1}}
+                td 
+                    a(href='establishment/{{r.establishment_name}} {{r.address}}'){{r.establishment_name}}
+                    br
+                    {{r.address}} 
+                    br
+                    {{r.city_state_zip}}
+                td {{r.date_of_inspection | date:"MM/dd/yyyy"}}
+                    br
+                    a.btn.btn-primary.btn-xs(target='_blank' href='{{r.response_url}}') Full Report
+                td {{r.critical_violations.total}} Critical
+                    br
+                    {{r.noncritical_violations.total}} Non-critical
+        pagination(total-items='restaurants.length' page='currentPage' max-size='maxSize' class='pagination-lg')
+    .col-4.col-sm-4.col-lg-4
+        leaflet(width='100%' height='519px' center='dc')
