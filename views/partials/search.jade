@@ -31,11 +31,11 @@ hr
             tr(ng-repeat='r in restaurants | orderBy:"date_of_inspection":true | startFrom:currentPage*maxSize | limitTo:maxSize')
                 td {{$index+1}}
                 td 
-                    strong {{r.establishment_name}}
+                    a(href='establishment/{{r.establishment_name}} {{r.address}}'){{r.establishment_name}}
                     br
-                    a(target='_blank' href='http://maps.google.com/?q={{r.address}} {{r.city_state_zip}}') {{r.address}} 
-                        br
-                        {{r.city_state_zip}}
+                    {{r.address}} 
+                    br
+                    {{r.city_state_zip}}
                 td {{r.date_of_inspection | date:"MM/dd/yyyy"}}
                     br
                     a.btn.btn-primary.btn-xs(target='_blank' href='{{r.response_url}}') Full Report

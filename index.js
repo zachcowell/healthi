@@ -33,6 +33,7 @@ app.get('/top20', api.top20);
 app.get('/latest', api.latest);
 app.post('/pests', api.pests);
 app.post('/find', api.search);
+app.post('/name', api.name);
 app.post('/restaurantNames', api.restaurantNames);
 //app.post('/pests', api.browsePests)
 app.get('/partials/:name', routes.partials);

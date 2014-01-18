@@ -19,21 +19,20 @@ var getOrObject = function (keywords){
 
 
 exports.search = function(req, res) {
-	var returned_fields = {
-		response_url : 1,
-		establishment_name: 1,
-		address: 1,
-		city_state_zip: 1,
-		date_of_inspection: 1,
-		//risk_category: 1,
-		type_of_inspection: 1,
-		noncritical_violations: 1,
-		critical_violations: 1,
-		//observations : 1
-	};
-	
-	if (undefined != req.body.establishment_name) var q = Inspections.find({establishment_name : new RegExp(req.body.establishment_name,'i')},returned_fields).limit(40);
-	else var q = Inspections.find({},returned_fields).limit(40); 
+	if (undefined != req.body.establishment_name){
+		var q = Inspections.aggregate([
+			{ $match : { establishment_name: new RegExp(req.body.establishment_name,'i') } }, 
+			{ $group: 
+				{ _id: { 
+					establishment_name: "$establishment_name",
+                    address: "$address",
+                    city_state_zip : "$city_state_zip"
+                },
+               number_of_reports: { $sum: 1 },
+               total_criticals : { $sum: "$critical_violations.total" } 
+                } }
+            ]);
+	}
 
 	q.exec(function (err, data) {
 	  if (err) console.log(err);
@@ -78,16 +77,6 @@ exports.latest = function(req, res) {
 }
 
 exports.restaurantNames = function(req, res) {
-	var returned_fields = {
-		establishment_name: 1,
-		address: 1,
-		city_state_zip: 1
-	};
-
-	/*Restaurants distinct establishment + address
-	var q = Inspections.aggregate([{ $match : { establishment_name: new RegExp(req.body.establishment_name,'i') } }, {$group: {"_id": {establishment_name: "$establishment_name",address: "$address" } } } ] );
-	*/
-
 	if (undefined != req.body.establishment_name) var q = Inspections.distinct("establishment_name", {establishment_name: new RegExp(req.body.establishment_name,'i') })
 	else var q = Inspections.aggregate([{$group: {"_id": {establishment_name: "$establishment_name",address: "$address" } } } ] );
 
@@ -98,8 +87,24 @@ exports.restaurantNames = function(req, res) {
 }
 
 exports.name = function(req, res) {
-	/*Inspections.find({ name_lower: req.params.name.toLowerCase() }, function (err, data) {
-	  if (err) return handleError(err);
+		var returned_fields = {
+		response_url : 1,
+		establishment_name: 1,
+		address: 1,
+		city_state_zip: 1,
+		date_of_inspection: 1,
+		//risk_category: 1,
+		type_of_inspection: 1,
+		noncritical_violations: 1,
+		critical_violations: 1,
+		//observations : 1
+	};
+	if (undefined != req.body.establishment_name) 
+		var q = Inspections.find({ establishment_name : req.body.establishment_name, address : req.body.address },returned_fields).limit(200);
+	else var q = Inspections.aggregate([{$group: {"_id": {establishment_name: "$establishment_name",address: "$address" } } } ] );
+
+	q.exec(function (err, data) {
+	  if (err) console.log(err);
 	  res.send(data);
-	})*/
+	})
 }

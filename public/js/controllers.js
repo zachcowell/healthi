@@ -9,21 +9,37 @@ angular.module('myApp.controllers', [])
             establishment_name: val
         }).then(function(res){
           var establishments = [];
-          _.map(res.data, function(item){ 
+          _.each(res.data, function(item){ 
             item = item.toLowerCase().replace(/\b[a-z]/g, function(letter) { return letter.toUpperCase(); });
-            item = item.replace("'S","'s");
+            item = item.replace("'S","'s"); //Mcdonald'S becomes Mcdonald's
             establishments.push(item); 
-            
           })
-          return establishments;
+          return _.sortBy(establishments,function(item) { return item; } );
         });
       };
   })
   .controller('MainCtrl', function ($scope, $routeParams, $http) {
   
+  })  
+  .controller('EstablishmentCtrl', function ($scope, $routeParams, $http) {
+    $scope.retrieveData = function(){
+        $http.post('/find/',  {establishment_name: $routeParams.searchterm}).     
+        success(function (data, status, headers, config) {
+          
+          if (! data.length > 0) { console.log('No results for found'); }
+          else { 
+            _.each(data, function(item){
+              $scope.restaurants.push(item._id);
+          });
+            //$scope.restaurants = _.sortBy($scope.restaurants,function(item) { return item.index; } );
+          }
+        }).
+        error(function (data, status, headers, config) {
+          $scope.name = 'Error!'
+        });
   })
   .controller('SearchCtrl', function ($scope, $routeParams, $http) {
-      $scope.isCollapsed= false;
+      $scope.isCollapsed= true;
       $scope.restaurants = [];
       $scope.totalItems = $scope.restaurants.length;
       $scope.currentPage = 0;
@@ -42,8 +58,14 @@ angular.module('myApp.controllers', [])
       $scope.retrieveData = function(){
         $http.post('/find/',  {establishment_name: $routeParams.searchterm}).     
         success(function (data, status, headers, config) {
+          
           if (! data.length > 0) { console.log('No results for found'); }
-          else { $scope.restaurants = data; $scope.filteredItems = $scope.restaurants; }      
+          else { 
+            _.each(data, function(item){
+              $scope.restaurants.push(item._id);
+          });
+            //$scope.restaurants = _.sortBy($scope.restaurants,function(item) { return item.index; } );
+          }
         }).
         error(function (data, status, headers, config) {
           $scope.name = 'Error!'
