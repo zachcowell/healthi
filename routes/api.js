@@ -78,13 +78,18 @@ exports.latest = function(req, res) {
 }
 
 exports.restaurantNames = function(req, res) {
-		var returned_fields = {
+	var returned_fields = {
 		establishment_name: 1,
 		address: 1,
 		city_state_zip: 1
 	};
-	if (undefined != req.body.establishment_name) var q = Inspections.find({establishment_name : new RegExp(req.body.establishment_name,'i')},returned_fields).limit(40);
-	else var q = Inspections.find({},returned_fields).limit(40); 
+
+	/*Restaurants distinct establishment + address
+	var q = Inspections.aggregate([{ $match : { establishment_name: new RegExp(req.body.establishment_name,'i') } }, {$group: {"_id": {establishment_name: "$establishment_name",address: "$address" } } } ] );
+	*/
+
+	if (undefined != req.body.establishment_name) var q = Inspections.distinct("establishment_name", {establishment_name: new RegExp(req.body.establishment_name,'i') })
+	else var q = Inspections.aggregate([{$group: {"_id": {establishment_name: "$establishment_name",address: "$address" } } } ] );
 
 	q.exec(function (err, data) {
 	  if (err) console.log(err);

@@ -9,9 +9,12 @@ angular.module('myApp.controllers', [])
             establishment_name: val
         }).then(function(res){
           var establishments = [];
-          angular.forEach(res.data, function(item){
-            establishments.push(item.establishment_name);
-          });
+          _.map(res.data, function(item){ 
+            item = item.toLowerCase().replace(/\b[a-z]/g, function(letter) { return letter.toUpperCase(); });
+            item = item.replace("'S","'s");
+            establishments.push(item); 
+            
+          })
           return establishments;
         });
       };
