@@ -23,16 +23,19 @@ exports.search = function(req, res) {
 		var q = Inspections.aggregate([
 			{ $match : { establishment_name: new RegExp(req.body.establishment_name,'i') } }, 
 			{ $group: 
-				{ _id: { 
-					establishment_name: "$establishment_name",
-                    address: "$address",
-                    city_state_zip : "$city_state_zip"
-                },
-               number_of_reports: { $sum: 1 },
-               total_criticals : { $sum: "$critical_violations.total" } 
+				{ 
+					_id: { 
+						establishment_name: "$establishment_name",
+	                    address: "$address",
+	                    city_state_zip : "$city_state_zip"
+                	},
+                	total_criticals : { $sum: "$critical_violations.total" },
+               		total_noncriticals : { "$sum": "$noncritical_violations.total" },
+               		number_of_reports: { $sum: 1 }
                 } }
             ]);
 	}
+
 
 	q.exec(function (err, data) {
 	  if (err) console.log(err);
