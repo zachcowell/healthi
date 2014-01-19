@@ -15,7 +15,7 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/search',
       controller: 'SearchCtrl'
     }).
-    when('/establishment/:searchterm', {
+    when('/establishment/:establishment/:address', {
       templateUrl: 'partials/establishment',
       controller: 'EstablishmentCtrl'
     }).

@@ -22,21 +22,19 @@ angular.module('myApp.controllers', [])
   
   })  
   .controller('EstablishmentCtrl', function ($scope, $routeParams, $http) {
-    $scope.retrieveData = function(){
-        $http.post('/find/',  {establishment_name: $routeParams.searchterm}).     
+      $scope.establishment = $routeParams.establishment;
+      $scope.address = $routeParams.address;
+      $scope.inspections = [];
+      $scope.retrieveData = function(){
+        $http.post('/name/',  {establishment_name: $scope.establishment, address: $scope.address } ).     
         success(function (data, status, headers, config) {
-          
           if (! data.length > 0) { console.log('No results for found'); }
-          else { 
-            _.each(data, function(item){
-              $scope.restaurants.push(item._id);
-          });
-            //$scope.restaurants = _.sortBy($scope.restaurants,function(item) { return item.index; } );
-          }
+          else { _.each(data, function(item){ $scope.inspections.push(item); }); }
         }).
         error(function (data, status, headers, config) {
           $scope.name = 'Error!'
         });
+      }();
   })
   .controller('SearchCtrl', function ($scope, $routeParams, $http) {
       $scope.isCollapsed= true;
