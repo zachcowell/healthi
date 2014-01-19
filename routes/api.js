@@ -30,8 +30,10 @@ exports.search = function(req, res) {
 	                    city_state_zip : "$city_state_zip"
                 	},
                 	total_criticals : { $sum: "$critical_violations.total" },
-               		total_noncriticals : { "$sum": "$noncritical_violations.total" },
-               		number_of_reports: { $sum: 1 }
+               		total_noncriticals : { $sum: "$noncritical_violations.total" },
+               		number_of_reports: { $sum: 1 },
+               		average_criticals : { $avg : "$critical_violations.total" },
+               		recent_inspection : { $last : "$date_of_inspection" }
                 } }
             ]);
 	}
