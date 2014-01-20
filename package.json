@@ -11,7 +11,8 @@
         "jade": "latest",
         "socket.io" : "latest",
         "mongoose" : "latest",
-        "underscore" : "latest"
+        "underscore" : "latest",
+        "moment" : "latest"
   },
   "repository": {
     "type": "git",

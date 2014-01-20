@@ -19,6 +19,9 @@ config(function ($routeProvider, $locationProvider) {
       templateUrl: 'partials/establishment',
       controller: 'EstablishmentCtrl'
     }).
+    when('/splash', {
+      templateUrl: 'partials/splash'
+    }).
     when('/', {
       templateUrl: 'partials/main',
       controller: 'MainCtrl'

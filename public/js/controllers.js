@@ -19,16 +19,25 @@ angular.module('myApp.controllers', [])
   })
   .controller('MainCtrl', function ($scope, $routeParams, $http) {
     $scope.latest=[];
-    $scope.retrieveLatest = function(){
-        $http.get('/latest/').     
+    $scope.worstRestaurantsAvg=[];
+    $scope.worstRecentInspections=[];
+    $scope.worstInspections=[];
+    $scope.worstRepeats=[];
+    
+
+    $scope.fetch = function(endpoint,array){
+      $http.get(endpoint).     
         success(function (data, status, headers, config) {
           if (! data.length > 0) { console.log('No results for found'); }
-          else { _.each(data, function(item){ $scope.latest.push(item); }); }
-        }).
-        error(function (data, status, headers, config) {
-          $scope.name = 'Error!'
-        });
-      }();
+          else { _.each(data, function(item){ array.push(item); }); }
+        }).error(function (data, status, headers, config) {});
+    }
+
+    $scope.fetch('/latest/',$scope.latest);
+    $scope.fetch('/worst/restaurantsavg/',$scope.worstRestaurantsAvg);
+    $scope.fetch('/worst/recentinspection/',$scope.worstRecentInspections);
+    $scope.fetch('/worst/inspections/',$scope.worstInspections);
+    $scope.fetch('/worst/repeatcriticals/',$scope.worstRepeats);
 
   })  
   .controller('EstablishmentCtrl', function ($scope, $routeParams, $http) {
@@ -79,7 +88,7 @@ angular.module('myApp.controllers', [])
           $scope.name = 'Error!'
         });
         /*var words = ['dropping','roach','mice','rodent','feces','mouse'];
-        $http.post('/pests/',  {keywords: words}).     
+        $http.post('/keywordSearch/',  {keywords: words}).     
         success(function (data, status, headers, config) {
           if (! data.length > 0) { console.log('No results for found'); }
           else { $scope.restaurants = data; $scope.filteredItems = $scope.restaurants; }      

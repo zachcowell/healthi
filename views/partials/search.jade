@@ -32,9 +32,9 @@ hr
             tr(ng-repeat='r in restaurants | orderBy:"recent_inspection":true | startFrom:currentPage*maxSize | limitTo:maxSize')
                 td {{$index+1}}
                 td 
-                    a(href='establishment/{{r._id.establishment_name}}/{{r._id.address}}'){{r._id.establishment_name}}
+                    a(href='establishment/{{r._id.establishment_name}}/{{r._id.address}}') {{r._id.establishment_name}}
                     br
-                    {{r._id.address}} 
+                    {{r._id.address}}
                     br
                     {{r._id.city_state_zip}}
                 td {{r.recent_inspection | date:"MM/dd/yyyy"}}

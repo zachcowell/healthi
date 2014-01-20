@@ -6,13 +6,10 @@ var express = require('express'),
 	path = require('path'),
 	app = module.exports = express();
 
-
 mongoose.connect('mongodb://localhost/healthi'); 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () { console.log('Database opened'); });
-
-
 
 app.configure(function(){
 	app.set('port', process.env.PORT || 3000);
@@ -28,17 +25,21 @@ if (app.get('env') === 'development') { app.use(express.errorHandler()); }
 if (app.get('env') === 'production') { };
 
 app.get('/', routes.index);
-app.get('/top20', api.top20);
-app.get('/latest', api.latest);
-app.post('/pests', api.pests);
+
+app.post('/keywordSearch', api.keywordSearch);
 app.post('/find', api.search);
+
+app.get('/latest', api.latest);
+app.get('/worst/restaurantsavg', api.worstRestaurantsAvg);
+app.get('/worst/recentinspection', api.worstRecentInspections);
+app.get('/worst/inspections', api.worstInspections);
+app.get('/worst/repeatcriticals', api.worstRepeats);
+
 app.post('/name', api.name);
 app.post('/restaurantNames', api.restaurantNames);
-//app.post('/pests', api.browsePests)
 app.get('/partials/:name', routes.partials);
 app.get('*', routes.index);
 
-// redirect all others to the index (HTML5 history)
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });

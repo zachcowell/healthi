@@ -1,10 +1,87 @@
 .row
-	.col-4.col-sm-4.col-lg-4
-		table.table-condensed
+	.col-8.col-sm-8.col-lg-8
+		h3.text-center Worst Restaurants (On Average)
+		table.table.table-striped
 			thead
+				th #
 				th Name
-				th Date
+				th Violations (Avg.)
+				th Last Inspected
 			tbody
-				tr(ng-repeat='i in latest')
-					td {{i.establishment_name | properCase}}
-					td {{i.date_of_inspection | date:"MM/dd" }}
+				tr(ng-repeat='i in worstRestaurantsAvg')
+					td {{$index+1}}
+					td 
+						a(href='establishment/{{i._id.establishment_name}}/{{i._id.address}}') {{i._id.establishment_name | properCase}}
+						br
+						{{i._id.address}}
+						br
+						{{i._id.city_state_zip}}
+					td 
+						{{i.average_criticals | roundUp}} Critical
+						br
+						{{i.average_noncriticals | roundUp}} Noncritical
+					td {{i.recent_inspection | date:"MM/dd/yyyy" }}
+	.col-4.col-sm-4.col-lg-4
+		.well
+			h4 Recent inspections
+			table.table-condensed
+				thead
+					th Name
+					th Date
+				tbody
+					tr(ng-repeat='i in latest')
+						td 
+							a(href='establishment/{{i.establishment_name}}/{{i.address}}') {{i.establishment_name | properCase}}
+						td {{i.date_of_inspection | date:"MM/dd" }}
+.row
+	.col-8.col-sm-8.col-lg-8
+		h3.text-center Worst Inspections (Last 30 Days)
+		table.table.table-striped
+			thead
+				th #
+				th Name
+				th Violations (Total)
+				th Date Inspected
+				th Full Report
+			tbody
+				tr(ng-repeat='i in worstRecentInspections')
+					td {{$index+1}}
+					td 
+						a(href='establishment/{{i.establishment_name}}/{{i.address}}') {{i.establishment_name | properCase}}
+						br
+						{{i.address}}
+						br
+						{{i.city_state_zip}}
+					td 
+						{{i.critical_violations.total}} Critical
+						br
+						{{i.noncritical_violations.total}} Noncritical
+					td {{i.date_of_inspection | date:"MM/dd/yyyy"}}
+					td
+						a.btn.btn-danger(target='_blank' href='{{i.response_url}}') View
+.row
+	.col-8.col-sm-8.col-lg-8
+		h3.text-center Worst Inspections (All Time)
+		table.table.table-striped
+			thead
+				th #
+				th Name
+				th Violations (Total)
+				th Date Inspected
+				th Full Report
+			tbody
+				tr(ng-repeat='i in worstInspections')
+					td {{$index+1}}
+					td 
+						a(href='establishment/{{i.establishment_name}}/{{i.address}}') {{i.establishment_name | properCase}}
+						br
+						{{i.address}}
+						br
+						{{i.city_state_zip}}
+					td 
+						{{i.critical_violations.total}} Critical
+						br
+						{{i.noncritical_violations.total}} Noncritical
+					td {{i.date_of_inspection | date:"MM/dd/yyyy"}}
+					td
+						a.btn.btn-danger(target='_blank' href='{{i.response_url}}') View
