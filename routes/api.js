@@ -29,10 +29,11 @@ exports.search = function(req, res) {
 	                    address: "$address",
 	                    city_state_zip : "$city_state_zip"
                 	},
-                	total_criticals : { $sum: "$critical_violations.total" },
-               		total_noncriticals : { $sum: "$noncritical_violations.total" },
-               		number_of_reports: { $sum: 1 },
+                	number_of_reports: { $sum: 1 },
                		average_criticals : { $avg : "$critical_violations.total" },
+               		average_noncriticals : { $avg : "$noncritical_violations.total" },
+               		total_crit_r : { $sum : "$critical_violations.r" },
+               		total_noncrit_r : { $sum : "$noncritical_violations.r" },
                		recent_inspection : { $last : "$date_of_inspection" }
                 } }
             ]);
@@ -70,6 +71,7 @@ exports.pests = function(req, res) {
 	  res.send(data);
 	})
 }
+
 
 exports.latest = function(req, res) {
 	var q = Inspections.find({})

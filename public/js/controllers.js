@@ -60,7 +60,7 @@ angular.module('myApp.controllers', [])
           if (! data.length > 0) { console.log('No results for found'); }
           else { 
             _.each(data, function(item){
-              $scope.restaurants.push(item._id);
+              $scope.restaurants.push(item);
           });
             //$scope.restaurants = _.sortBy($scope.restaurants,function(item) { return item.index; } );
           }

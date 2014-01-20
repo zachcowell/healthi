@@ -6,4 +6,7 @@ angular.module('myApp.filters', []).
 	    start = +start; 
 	    return input.slice(start);
 	}
+}).
+	filter('roundUp', function() {
+	return function(input) { return Math.ceil(input); }
 });

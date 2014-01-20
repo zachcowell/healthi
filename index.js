@@ -27,7 +27,6 @@ app.configure(function(){
 if (app.get('env') === 'development') { app.use(express.errorHandler()); }
 if (app.get('env') === 'production') { };
 
-
 app.get('/', routes.index);
 app.get('/top20', api.top20);
 app.get('/latest', api.latest);
