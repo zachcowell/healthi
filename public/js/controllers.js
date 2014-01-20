@@ -23,14 +23,48 @@ angular.module('myApp.controllers', [])
     $scope.worstRecentInspections=[];
     $scope.worstInspections=[];
     $scope.worstRepeats=[];
-    
+    $scope.violationTimeseries =[];
 
-    $scope.fetch = function(endpoint,array){
-      $http.get(endpoint).     
-        success(function (data, status, headers, config) {
+    $scope.chartConfig = {
+        options: { 
+          chart: { type: 'spline' },
+          legend: { enabled: true },
+          plotOptions: { spline: { marker: { enabled: false } } }, 
+        },
+          xAxis: { type: 'datetime',title: { enabled: true, text: 'Year' },
+          },
+          yAxis: { title: { text: 'Rank' },min: 0},              
+        title: { text: 'Inspections Over Time' },
+        series: [],
+        credits: { enabled: false },
+        loading: false
+    };
+     
+  var seriesCreation = function(chartConfig){
+     return function(data){
+      var seriesObj = [];
+      _.each(data,function(item){
+        console.log(Date.parse(item._id.year,item._id.month,item._id.day));
+        //var newdate = new Date(item._id.year,item._id.month,item._id.day);
+        //var converted = moment(newdate).format("MM/DD/YYYY");
+        var point = parseInt(item.number_of_reports);
+        seriesObj.push([Date.UTC(item._id.year,item._id.month,item._id.day),point]);
+      });
+      seriesObj = _.sortBy(seriesObj,function(item){ return item[0]; });
+      chartConfig.series.push({ name: 'Inspections', data: seriesObj });
+     } 
+   }
+
+    $scope.fetch = function(endpoint,array,callback){
+      if (callback == undefined){ var func = function (data, status, headers, config) {
           if (! data.length > 0) { console.log('No results for found'); }
           else { _.each(data, function(item){ array.push(item); }); }
-        }).error(function (data, status, headers, config) {});
+        } 
+      }
+      else { var func = callback; }
+
+      $http.get(endpoint).     
+        success(func).error(function (data, status, headers, config) {});
     }
 
     $scope.fetch('/latest/',$scope.latest);
@@ -38,7 +72,9 @@ angular.module('myApp.controllers', [])
     $scope.fetch('/worst/recentinspection/',$scope.worstRecentInspections);
     $scope.fetch('/worst/inspections/',$scope.worstInspections);
     $scope.fetch('/worst/repeatcriticals/',$scope.worstRepeats);
+    $scope.fetch('/timeseries/violation/',$scope.violationTimeseries,seriesCreation($scope.chartConfig));
 
+    
   })  
   .controller('EstablishmentCtrl', function ($scope, $routeParams, $http) {
       $scope.establishment = $routeParams.establishment;

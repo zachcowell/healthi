@@ -3,7 +3,7 @@ html(ng-app="myApp")
   head
     meta(charset='utf8')
     base(href='/')
-    title Healthi DC
+    title DC Health Violations
     link(rel='stylesheet', href='/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/app.css')
     link(rel='stylesheet', href='http://cdn.leafletjs.com/leaflet-0.7/leaflet.css')
@@ -13,15 +13,13 @@ html(ng-app="myApp")
     .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
         .container(ng-controller='HeaderCtrl')
             .navbar-header
-            a.navbar-brand(href='/') Healthi DC
+            a.navbar-brand(href='/') DC Health Violations
             .collapse.navbar-collapse
                 form.navbar-form.navbar-left(role='form')
                     .form-group
-                        input.form-control(type='text' placeholder='Restaurant' ng-model='searchString' typeahead-on-select='go("/search/"+searchString)' typeahead='establishment_name for establishment_name in getLocation($viewValue) | filter:$viewValue' typeahead-min-length=3)
+                        input.form-control(style='width:350px;' type='text' placeholder='Restaurant' ng-model='searchString' typeahead-on-select='go("/search/"+searchString)' typeahead='establishment_name for establishment_name in getLocation($viewValue) | filter:$viewValue' typeahead-min-length=3)
                     button.btn.btn-success(ng-click='go("/search/"+searchString)') Search
                 ul.nav.navbar-nav
-                    li
-                        a(href='/') Top Offenders
                     li
                         a(href='about') About
                     li
@@ -34,6 +32,12 @@ html(ng-app="myApp")
     script(src='js/lib/ui-bootstrap-tpls-0.9.0.min.js')
     script(src='js/lib/angular-route.min.js')
     script(src='http://cdn.leafletjs.com/leaflet-0.7/leaflet.js')
+    
+    script(src='js/lib/moment.min.js')
+    script(src='js/lib/jquery.js')
+    script(src='js/lib/highcharts.js')
+    script(src='js/lib/highcharts-ng.min.js')
+
     script(src='js/lib/angular-leaflet-directive.js')
     script(src='js/lib/leaflet.awesome-markers.min.js')
     script(src='js/app.js')

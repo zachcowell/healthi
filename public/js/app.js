@@ -7,7 +7,8 @@ angular.module('myApp', [
   'myApp.filters',
   'ngRoute',
   'ui.bootstrap',
-  'leaflet-directive'
+  'leaflet-directive',
+  'highcharts-ng'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.

@@ -29,6 +29,8 @@ app.get('/', routes.index);
 app.post('/keywordSearch', api.keywordSearch);
 app.post('/find', api.search);
 
+app.get('/timeseries/violation',api.violationTimeseries);
+
 app.get('/latest', api.latest);
 app.get('/worst/restaurantsavg', api.worstRestaurantsAvg);
 app.get('/worst/recentinspection', api.worstRecentInspections);

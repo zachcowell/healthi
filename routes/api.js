@@ -39,6 +39,26 @@ exports.search = function(req, res) {
 	execQuery(q,res);
 }
 
+exports.violationTimeseries = function(req, res) {
+		var q = Inspections.aggregate([
+			{ $match : { date_of_inspection: { $gt: new Date(moment().subtract('days', 60).format()) } } }, 
+			{ $group: 
+				{ 
+					_id: { 
+						year : { $year : "$date_of_inspection" },
+						month : { $month : "$date_of_inspection" },
+						day : { $dayOfMonth : "$date_of_inspection" }
+                	},
+                	number_of_reports: { $sum: 1 },
+               		average_criticals : { $avg : "$critical_violations.total" },
+               		average_noncriticals : { $avg : "$noncritical_violations.total" },
+               		total_crit : { $sum : "$critical_violations.total" },
+               		total_noncrit : { $sum : "$noncritical_violations.total" }
+                } }
+            ]);
+	execQuery(q,res);
+}
+
 exports.worstRestaurantsAvg = function(req,res){
 	var q = Inspections.aggregate([
 		{ $match : { date_of_inspection: { $gt: new Date(moment().subtract('days', 365).format()) } } }, 
