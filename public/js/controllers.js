@@ -28,13 +28,14 @@ angular.module('myApp.controllers', [])
     $scope.chartConfig = {
         options: { 
           chart: { type: 'spline' },
-          legend: { enabled: true },
+          legend: { enabled: false },
           plotOptions: { spline: { marker: { enabled: false } } }, 
         },
-          xAxis: { type: 'datetime',title: { enabled: true, text: 'Year' },
+          xAxis: { type: 'datetime',title: { enabled: false, text: 'Date' },
           },
-          yAxis: { title: { text: 'Rank' },min: 0},              
-        title: { text: 'Inspections Over Time' },
+          yAxis: { gridLineWidth: 0, minorGridLineWidth: 0,title: { text: 'Inspections',enabled: false },min: 0},              
+        title: { text: 'Inspections Performed' },
+        subtitle: { text : '(Last 60 Days)'},
         series: [],
         credits: { enabled: false },
         loading: false
