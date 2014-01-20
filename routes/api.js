@@ -74,7 +74,13 @@ exports.pests = function(req, res) {
 
 
 exports.latest = function(req, res) {
-	var q = Inspections.find({})
+	var returned_fields = {
+		response_url : 1,
+		establishment_name: 1,
+		date_of_inspection: 1
+	};
+
+	var q = Inspections.find({},returned_fields)
 	.sort({'date_of_inspection': -1})
 	.limit(20);
 	q.exec(function (err, data) {

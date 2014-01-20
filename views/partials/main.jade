@@ -1,1 +1,10 @@
-h3 main here
+.row
+	.col-4.col-sm-4.col-lg-4
+		table.table-condensed
+			thead
+				th Name
+				th Date
+			tbody
+				tr(ng-repeat='i in latest')
+					td {{i.establishment_name | properCase}}
+					td {{i.date_of_inspection | date:"MM/dd" }}

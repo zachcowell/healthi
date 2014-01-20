@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myApp.controllers', [])
-  .controller('HeaderCtrl', function ($scope, $location, $routeParams, $http) {
+  .controller('HeaderCtrl', function ($scope, $location, $routeParams, $filter, $http) {
     $scope.go = function (path) { $location.path( path ); };
 
     $scope.getLocation = function(val) {
@@ -10,8 +10,7 @@ angular.module('myApp.controllers', [])
         }).then(function(res){
           var establishments = [];
           _.each(res.data, function(item){ 
-            item = item.toLowerCase().replace(/\b[a-z]/g, function(letter) { return letter.toUpperCase(); });
-            item = item.replace("'S","'s"); //Mcdonald'S becomes Mcdonald's
+            item = $filter('properCase')(item);
             establishments.push(item); 
           })
           return _.sortBy(establishments,function(item) { return item; } );
@@ -19,7 +18,18 @@ angular.module('myApp.controllers', [])
       };
   })
   .controller('MainCtrl', function ($scope, $routeParams, $http) {
-  
+    $scope.latest=[];
+    $scope.retrieveLatest = function(){
+        $http.get('/latest/').     
+        success(function (data, status, headers, config) {
+          if (! data.length > 0) { console.log('No results for found'); }
+          else { _.each(data, function(item){ $scope.latest.push(item); }); }
+        }).
+        error(function (data, status, headers, config) {
+          $scope.name = 'Error!'
+        });
+      }();
+
   })  
   .controller('EstablishmentCtrl', function ($scope, $routeParams, $http) {
       $scope.establishment = $routeParams.establishment;
