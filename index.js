@@ -2,6 +2,7 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	routes = require('./routes'),
 	api = require('./routes/api.js'),
+	admin = require('./routes/administration.js'),
 	http = require('http'),
 	path = require('path'),
 	app = module.exports = express();
@@ -36,6 +37,8 @@ app.get('/worst/restaurantsavg', api.worstRestaurantsAvg);
 app.get('/worst/recentinspection', api.worstRecentInspections);
 app.get('/worst/inspections', api.worstInspections);
 app.get('/worst/repeatcriticals', api.worstRepeats);
+
+app.get('/latlng',admin.addressLatLng);
 
 app.post('/name', api.name);
 app.post('/restaurantNames', api.restaurantNames);

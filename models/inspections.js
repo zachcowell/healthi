@@ -11,6 +11,8 @@ var inspectionSchema = mongoose.Schema({
 	license_holder: String,
 	establishment_type: String,
 	risk_category: Number,
+	lat: Number,
+	lng: Number,
 	type_of_inspection: String,
 	license_customer_number: String,
 	time_in: String,

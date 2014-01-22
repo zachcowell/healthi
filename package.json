@@ -12,7 +12,8 @@
         "socket.io" : "latest",
         "mongoose" : "latest",
         "underscore" : "latest",
-        "moment" : "latest"
+        "moment" : "latest",
+        "request" : "latest"
   },
   "repository": {
     "type": "git",
