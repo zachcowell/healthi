@@ -7,12 +7,9 @@ var express = require('express'),
 	path = require('path'),
 	app = module.exports = express();
 
-mongoose.connect('mongodb://localhost/healthi'); 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback () { console.log('Database opened'); });
 
 app.configure(function(){
+	app.set('env','production');
 	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
@@ -22,8 +19,18 @@ app.configure(function(){
 	app.use(app.router);
 });
 
-if (app.get('env') === 'development') { app.use(express.errorHandler()); }
-if (app.get('env') === 'production') { };
+if (app.get('env') === 'development') { 
+	app.use(express.errorHandler()); 
+	mongoose.connect('mongodb://localhost/healthi'); 
+}
+if (app.get('env') === 'production') { 
+	mongoose.connect('mongodb://rootu:Zawst1234!@ds027749.mongolab.com:27749/healthi'); 
+};
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () { console.log('Database opened'); });
+
 
 app.get('/', routes.index);
 
