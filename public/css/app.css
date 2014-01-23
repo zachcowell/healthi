@@ -4,7 +4,7 @@
 }
 body { 
   min-height: 850px; 
-  padding-top: 50px;
+  padding-top: 80px;
 }
 
  .nav, .pagination, .carousel a { cursor: pointer; }
