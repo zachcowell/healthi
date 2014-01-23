@@ -4,22 +4,24 @@ html(ng-app="myApp")
     meta(charset='utf8')
     base(href='/')
     title DC Health Violations
-    link(rel='stylesheet', href='/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/bootstrapu.min.css')
     link(rel='stylesheet', href='/css/app.css')
     link(rel='stylesheet', href='http://cdn.leafletjs.com/leaflet-0.7/leaflet.css')
     link(rel='stylesheet', href='/css/leaflet.awesome-markers.css')
     link(href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet")
   body
-    .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+    .navbar.navbar-default.navbar-fixed-top(role='navigation')
         .container(ng-controller='HeaderCtrl')
             .navbar-header
             a.navbar-brand(href='/') DC Health Violations
             .collapse.navbar-collapse
                 form.navbar-form.navbar-left(role='form')
                     .form-group
-                        input.form-control(style='width:350px;' type='text' placeholder='Restaurant' ng-model='searchString' typeahead-on-select='go("/search/"+searchString)' typeahead='establishment_name for establishment_name in getLocation($viewValue) | filter:$viewValue' typeahead-min-length=3)
-                    button.btn.btn-success(ng-click='go("/search/"+searchString)') Search
+                        input.form-control(type='text' placeholder='Restaurant' ng-model='searchString' style='width:350px;' typeahead-on-select='go("/search/"+searchString)' typeahead='establishment_name for establishment_name in getLocation($viewValue) | filter:$viewValue' typeahead-min-length=3)
+                    button.btn.btn-success(style='margin-left:10px;' ng-click='go("/search/"+searchString)') Search
                 ul.nav.navbar-nav
+                    li
+                        a(href='/') Metrics
                     li
                         a(href='about') About
                     li
