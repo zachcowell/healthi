@@ -31,7 +31,8 @@ angular.module('myApp.controllers', [])
           legend: { enabled: false },
           plotOptions: { spline: { marker: { enabled: false } } }, 
         },
-          xAxis: { type: 'datetime',title: { enabled: false, text: 'Date' },
+          xAxis: { 
+            type: 'datetime',title: { enabled: false, text: 'Date' },
           },
           yAxis: { gridLineWidth: 0, minorGridLineWidth: 0,title: { text: 'Inspections',enabled: false },min: 0},              
         title: { text: 'Inspections Performed' },
@@ -46,10 +47,8 @@ angular.module('myApp.controllers', [])
       var seriesObj = [];
       _.each(data,function(item){
         console.log(item._id.year+" "+item._id.month+" "+item._id.day);
-        //var newdate = new Date(item._id.year,item._id.month,item._id.day);
-        //var converted = moment(newdate).format("MM/DD/YYYY");
         var point = parseInt(item.number_of_reports);
-        seriesObj.push([Date.UTC(item._id.year,item._id.month,item._id.day),point]);
+        seriesObj.push([Date.UTC(item._id.year,item._id.month-1,item._id.day),point]); //Month starts at 0....
       });
       seriesObj = _.sortBy(seriesObj,function(item){ return item[0]; });
       chartConfig.series.push({ name: 'Inspections', data: seriesObj });
