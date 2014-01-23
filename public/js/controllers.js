@@ -45,7 +45,7 @@ angular.module('myApp.controllers', [])
      return function(data){
       var seriesObj = [];
       _.each(data,function(item){
-        console.log(Date.parse(item._id.year,item._id.month,item._id.day));
+        console.log(item._id.year+" "+item._id.month+" "+item._id.day);
         //var newdate = new Date(item._id.year,item._id.month,item._id.day);
         //var converted = moment(newdate).format("MM/DD/YYYY");
         var point = parseInt(item.number_of_reports);
