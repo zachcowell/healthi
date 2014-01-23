@@ -46,7 +46,6 @@ angular.module('myApp.controllers', [])
      return function(data){
       var seriesObj = [];
       _.each(data,function(item){
-        console.log(item._id.year+" "+item._id.month+" "+item._id.day);
         var point = parseInt(item.number_of_reports);
         seriesObj.push([Date.UTC(item._id.year,item._id.month-1,item._id.day),point]); //Month starts at 0....
       });
@@ -80,16 +79,57 @@ angular.module('myApp.controllers', [])
       $scope.establishment = $routeParams.establishment;
       $scope.address = $routeParams.address;
       $scope.inspections = [];
+
+  var seriesCreation = function(chartConfig,data){
+      var criticalSeriesObj = [];
+      var noncriticalSeriesObj = [];
+      _.each(data,function(item){
+        var dateVal = Date.parse(item.date_of_inspection);
+        var pointC = parseInt(item.critical_violations.total);
+        var pointNC = parseInt(item.noncritical_violations.total);
+
+        
+        criticalSeriesObj.push([dateVal,pointC]);
+        noncriticalSeriesObj.push([dateVal,pointNC]);
+      });
+      criticalSeriesObj = _.sortBy(criticalSeriesObj,function(item){ return item[0]; });
+      noncriticalSeriesObj = _.sortBy(noncriticalSeriesObj,function(item){ return item[0]; });
+      chartConfig.series.push({ name: 'Critical Violations', data: criticalSeriesObj });
+      chartConfig.series.push({ name: 'Noncritical Violations', data: noncriticalSeriesObj });
+   }
+
+      $scope.chartConfig = {
+          options: { 
+            chart: { type: 'spline' },
+            legend: { enabled: true },
+            plotOptions: { spline: { marker: { enabled: false } } }, 
+          },
+            xAxis: { 
+              type: 'datetime',title: { enabled: true, text: 'Date of Inspection' },
+            },
+            yAxis: { gridLineWidth: 0.2, minorGridLineWidth: 1,title: { text: 'Violations',enabled: true },min: 0},              
+          title: { text: 'Inspections Over Time' },
+          subtitle: { text : $scope.establishment},
+          series: [],
+          credits: { enabled: false },
+          loading: false
+      };
+
+
       $scope.retrieveData = function(){
         $http.post('/name/',  {establishment_name: $scope.establishment, address: $scope.address } ).     
         success(function (data, status, headers, config) {
           if (! data.length > 0) { console.log('No results for found'); }
-          else { _.each(data, function(item){ $scope.inspections.push(item); }); }
+          else { 
+            _.each(data, function(item){ $scope.inspections.push(item); }); 
+            seriesCreation($scope.chartConfig,data);
+          }
         }).
         error(function (data, status, headers, config) {
           $scope.name = 'Error!'
         });
       }();
+
   })
   .controller('SearchCtrl', function ($scope, $routeParams, $http) {
       $scope.isCollapsed= true;

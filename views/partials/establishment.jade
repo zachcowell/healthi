@@ -4,6 +4,7 @@
         h4 {{address}}
 .row
     .col-8.col-sm-8.col-lg-8
+        highchart(id='establishmentTimeseries' config='chartConfig' style='height:400px;width:100%;')
         table.table.table-striped
             thead
                 tr
@@ -18,4 +19,4 @@
                 td 
                     a.btn.btn-primary(target='_blank' href='{{r.response_url}}') View
     .col-4.col-sm-4.col-lg-4
-        leaflet(width='100%' height='519px' center='dc')
+        leaflet(width='100%' height='250px' center='dc')
