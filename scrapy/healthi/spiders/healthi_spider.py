@@ -140,13 +140,13 @@ class HealthiSpider(CrawlSpider):
 		item["license_period_start"] = self.get_node_and_trim(sel,'//table[2]//tr[7]//div[2]/text()',0) + '/' + self.get_node_and_trim(sel,'//table[2]//tr[7]//div[3]/text()',0) + '/' + self.get_node_and_trim(sel,'//table[2]//tr[7]//div[4]/text()',0)
 		item["license_period_end"] = self.get_node_and_trim(sel,'//table[2]//tr[7]//div[5]/text()',0) + '/' + self.get_node_and_trim(sel,'//table[2]//tr[7]//div[6]/text()',0) + '/' + self.get_node_and_trim(sel,'//table[2]//tr[7]//div[7]/text()',0)
 		item["critical_violations"] = {}
-		item["critical_violations"]["total"] = self.get_node_and_trim(sel,'//table[@class="times"][2]/tr[2]/td[2]/text()',0)
-		item["critical_violations"]["cos"] = self.get_node_and_trim(sel,'//table[@class="times"][2]/tr[2]/td[4]/text()',0)
-		item["critical_violations"]["r"] = self.get_node_and_trim(sel,'//table[@class="times"][2]/tr[2]/td[6]/text()',0)
+		item["critical_violations"]["total"] = self.get_node_and_trim(sel,'(//table[@class="times"])[2]/tr[2]/td[2]/text()',0)
+		item["critical_violations"]["cos"] = self.get_node_and_trim(sel,'(//table[@class="times"])[2]/tr[2]/td[4]/text()',0)
+		item["critical_violations"]["r"] = self.get_node_and_trim(sel,'(//table[@class="times"])[2]/tr[2]/td[6]/text()',0)
 		item["noncritical_violations"] = {}
-		item["noncritical_violations"]["total"] = self.get_node_and_trim(sel,'//table[@class="times"][2]/tr[3]/td[2]/text()',0)
-		item["noncritical_violations"]["cos"] = self.get_node_and_trim(sel,'//table[@class="times"][2]/tr[3]/td[4]/text()',0)
-		item["noncritical_violations"]["r"] = self.get_node_and_trim(sel,'//table[@class="times"][2]/tr[3]/td[6]/text()',0)
+		item["noncritical_violations"]["total"] = self.get_node_and_trim(sel,'(//table[@class="times"])[2]/tr[3]/td[2]/text()',0)
+		item["noncritical_violations"]["cos"] = self.get_node_and_trim(sel,'(//table[@class="times"])[2]/tr[3]/td[4]/text()',0)
+		item["noncritical_violations"]["r"] = self.get_node_and_trim(sel,'(//table[@class="times"])[2]/tr[3]/td[6]/text()',0)
 		item["compliance_line_items"] = self.get_compliance_line_items(sel)
 		item["observations"] = self.get_observations(sel)
 		return item
