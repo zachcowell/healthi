@@ -1,5 +1,4 @@
 #!/bin/bash
 
-mongo healthi addressFind.js > out2.txt
-tail -n +3 out2.txt > out.txt
-rm out2.txt
+mongo healthi addressFind.js
+# add in bash script to parse the list and perform an http request to geocode each address
