@@ -30,7 +30,7 @@ exports.violation_breakdown = function(req, res) {
                 } }
             ]);
 
-
+/*
 var q = 
 Inspections.aggregate(
 { $project: {
@@ -56,5 +56,5 @@ $cond: [ {$lt: ["$critical_violations.total", 101]}, '81-100', '100+' ]
 _id: "$bucket",
 $sum: establishment_name
 }});
-	execQuery(q,res);
+	execQuery(q,res);*/
 }
