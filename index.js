@@ -2,6 +2,7 @@ var express = require('express'),
 	mongoose = require('mongoose'),
 	routes = require('./routes'),
 	api = require('./routes/api.js'),
+	metrics = require('./routes/metrics.js'),
 	admin = require('./routes/administration.js'),
 	http = require('http'),
 	path = require('path'),
@@ -9,7 +10,7 @@ var express = require('express'),
 
 
 app.configure(function(){
-	app.set('env','production');
+	app.set('env','development');
 	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
@@ -24,7 +25,7 @@ if (app.get('env') === 'development') {
 	mongoose.connect('mongodb://localhost/healthi'); 
 }
 if (app.get('env') === 'production') { 
-	mongoose.connect('mongodb://rootu:Zawst1234!@ds027749.mongolab.com:27749/healthi'); 
+	mongoose.connect('mongodb://rootu:bravo@ds027749.mongolab.com:27749/healthi'); 
 };
 
 var db = mongoose.connection;
@@ -36,20 +37,19 @@ app.get('/', routes.index);
 
 app.post('/keywordSearch', api.keywordSearch);
 app.post('/find', api.search);
-
 app.get('/timeseries/violation',api.violationTimeseries);
-
 app.get('/latest', api.latest);
 app.get('/worst/restaurantsavg', api.worstRestaurantsAvg);
 app.get('/worst/recentinspection', api.worstRecentInspections);
 app.get('/worst/inspections', api.worstInspections);
 app.get('/worst/repeatcriticals', api.worstRepeats);
-
-app.get('/latlng',admin.addressLatLng);
-
+//app.get('/latlng',admin.addressLatLng);
 app.post('/name', api.name);
 app.post('/restaurantNames', api.restaurantNames);
 app.get('/partials/:name', routes.partials);
+
+app.get('/metrics/incidentBreakdown',metrics.violation_breakdown)
+
 app.get('*', routes.index);
 
 http.createServer(app).listen(app.get('port'), function () {
