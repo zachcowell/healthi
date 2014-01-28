@@ -13,7 +13,8 @@
         "mongoose" : "latest",
         "underscore" : "latest",
         "moment" : "latest",
-        "request" : "latest"
+        "request" : "latest",
+        "geocodio" : "latest"
   },
   "repository": {
     "type": "git",
