@@ -18,7 +18,7 @@ exports.geocoding = function(req,res){
 	q.exec(function (err,data){
 		for (x in data) { 
 			i++;
-			if (i < 2){
+			if (i < 34932){
 				post_data.push({
 					address: data[x]._id.address,
 					city: data[x]._id.city,
@@ -30,20 +30,14 @@ exports.geocoding = function(req,res){
 		}			
 	})
 	.then(function(){
-		_.each(post_data,function(item){
-			geocodio.geocode(item.full, function(err, response){
-    			if (err) console.log(err);
-    			else {
-    				if (response.results.length > 0){
-    					var resp = response.results[0].response.results[0];
-		    			item.lat = parseFloat(resp.location.lat);
-		    			item.lng = parseFloat(resp.location.lng);
-	    			}
-    				
-	    		}
-			});
+		var arr=[];
+		_.each(post_data, function(item){
+			arr.push(item.full);
 		});
-	})
+		res.send(arr);
+		
+	
+	});
 	/*.then(function(){
 		_.each(post_data,function(item){
 			Inspections.update(
@@ -55,9 +49,7 @@ exports.geocoding = function(req,res){
 	            });
 		});
 	})*/
-	.then(function(){
-		res.send(post_data);
-	});
+	
 
 
 }
