@@ -1,7 +1,5 @@
 var Inspections = require('../models/inspections.js');
 var _ = require('underscore');
-var moment = require('moment');
-var request = require('request');
 var Geocodio = require('geocodio');
 var fs = require('fs');
 
@@ -11,7 +9,7 @@ exports.geocoding = function(req,res){
 	var q = Inspections.aggregate([
 		{ $match : { lat: null, lng: null } }, 
 		{ $group: {"_id": {address: "$address",city: "$city_state_zip"}} },
-		{ $limit: 300 }
+		{ $limit: 1000 }
 	]);
 	
 	q.exec(function (err,data){
@@ -20,18 +18,18 @@ exports.geocoding = function(req,res){
 		
 		geocodio.geocode(post_data, function(err, response){
 		    if (err) throw err;
-		    fs.writeFile(Date.now()+'.json', JSON.stringify(response), function (err) { if (err) return console.log(err); });
+		    fs.writeFile('./data/'+Date.now()+'.json', JSON.stringify(response), function (err) { if (err) return console.log(err); });
 			res.send('Response saved to '+ Date.now()+'.json');
 		});
 	});
 }
 
 exports.insertion = function(req,res){
-	var pwd = fs.readdirSync('./');
+	var pwd = fs.readdirSync('./data/');
 	
 	_.each(pwd,function(item){ 
 		if (item.substr(-4) == 'json' && item != 'package.json') {
-			var response = JSON.parse(fs.readFileSync('./'+item,'utf8')); 
+			var response = JSON.parse(fs.readFileSync('./data/'+item,'utf8')); 
 			_.each(response.results,function(item){ 
 				if (item.response.results != undefined){
 					if (item.response.results.length > 0){ 
@@ -55,6 +53,7 @@ exports.insertion = function(req,res){
 					}
 				}
 			});
+
 		}
 	});
 	res.send('Updates complete');
