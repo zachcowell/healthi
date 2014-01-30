@@ -18,18 +18,18 @@ exports.geocoding = function(req,res){
 		
 		geocodio.geocode(post_data, function(err, response){
 		    if (err) throw err;
-		    fs.writeFile('./data/'+Date.now()+'.json', JSON.stringify(response), function (err) { if (err) return console.log(err); });
+		    fs.writeFile('./geocoding/'+Date.now()+'.json', JSON.stringify(response), function (err) { if (err) return console.log(err); });
 			res.send('Response saved to '+ Date.now()+'.json');
 		});
 	});
 }
 
 exports.insertion = function(req,res){
-	var pwd = fs.readdirSync('./data/');
+	var pwd = fs.readdirSync('./geocoding/');
 	
 	_.each(pwd,function(item){ 
 		if (item.substr(-4) == 'json' && item != 'package.json') {
-			var response = JSON.parse(fs.readFileSync('./data/'+item,'utf8')); 
+			var response = JSON.parse(fs.readFileSync('./geocoding/'+item,'utf8')); 
 			_.each(response.results,function(item){ 
 				if (item.response.results != undefined){
 					if (item.response.results.length > 0){ 
@@ -44,7 +44,6 @@ exports.insertion = function(req,res){
 						}			
 						var lati = parseFloat(item.response.results[0].location.lat);
 						var longi = parseFloat(item.response.results[0].location.lng);
-						Inspections.update({address: addr, city_state_zip: csz},{lat: lati, lng: longi});
 						Inspections.update({address: addr, city_state_zip: csz},{lat: lati, lng: longi}, { multi: true }, function (err, numberAffected, raw) {
 						  if (err) console.log(err)
 						  console.log('The number of updated documents was %d', numberAffected);
