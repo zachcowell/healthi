@@ -1,5 +1,5 @@
 db.inspections.remove({establishment_name: ""});
-db.inspections.update({},$set: {lat: null,lng:null},{multi:true});
+db.inspections.update({},{$set: {lat: null,lng:null}},{multi:true});
 
 db.inspections.find({}).forEach( function (x) {   
  	x.critical_violations.total = parseInt(x.critical_violations.total); 
