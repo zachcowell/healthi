@@ -11,5 +11,12 @@ mongoimport --file data.json -d healthi -c inspections
 echo "[$(date)] Performing post import task" >> $LOGFILE
 mongo healthi import.js
 echo "[$(date)] Geocoding addresses" >> $LOGFILE
+mongoimport --jsonArray --file ../geocoding/1391036161126.json -d healthi -c geotemp
+mongoimport --jsonArray --file ../geocoding/1391046415342.json -d healthi -c geotemp
+mongoimport --jsonArray --file ../geocoding/1391046983502.json -d healthi -c geotemp
+mongoimport --jsonArray --file ../geocoding/1391094811139.json -d healthi -c geotemp
+mongoimport --jsonArray --file ../geocoding/1391095425663.json -d healthi -c geotemp
+mongo healthi geocoding.js
+echo "[$(date)] Post import cleanup" >> $LOGFILE
 rm data.json
-node geocoding.js
+mongo healthi postimport.js

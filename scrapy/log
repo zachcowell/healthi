@@ -1,0 +1,8 @@
+=================== 03.20.14 Data Pull ===================
+[Thu Mar 20 23:54:08 EDT 2014] Begin scraping Dept of Health website
+[Thu Mar 20 23:54:10 EDT 2014] Scrape complete
+[Thu Mar 20 23:54:10 EDT 2014] Purging existing database
+[Thu Mar 20 23:54:10 EDT 2014] Importing data into datastore
+[Thu Mar 20 23:54:10 EDT 2014] Performing post import task
+[Thu Mar 20 23:54:10 EDT 2014] Geocoding addresses
+[Thu Mar 20 23:54:11 EDT 2014] Post import cleanup
