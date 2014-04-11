@@ -154,3 +154,55 @@ Number of items in inspection: 16236
 [Sat Mar 22 17:05:20 EDT 2014] Pushing healthi to production
 [Sat Mar 22 17:09:00 EDT 2014] Cleanup
 [Sat Mar 22 17:09:00 EDT 2014] Done!
+=================== 03.24.14 Data Pull ===================
+[Mon Mar 24 20:58:13 EDT 2014] Begin scraping Dept of Health website
+[Mon Mar 24 21:39:19 EDT 2014] Scrape complete
+[Mon Mar 24 21:39:19 EDT 2014] Purging existing database
+[Mon Mar 24 21:39:19 EDT 2014] Importing data into datastore
+[Mon Mar 24 21:39:24 EDT 2014] Performing post import task
+[Mon Mar 24 21:39:49 EDT 2014] Geocoding addresses
+[Mon Mar 24 21:39:50 EDT 2014] Post-import
+MongoDB shell version: 2.4.8
+connecting to: healthi
+Number of items in geotemp: 2751
+Number of items in inspection: 10299
+[Mon Mar 24 21:39:50 EDT 2014] Dumping healthi database to file
+[Mon Mar 24 21:39:50 EDT 2014] Pushing healthi to production
+[Mon Mar 24 21:42:11 EDT 2014] Cleanup
+[Mon Mar 24 21:42:11 EDT 2014] Done!
+=================== 04.06.14 Data Pull ===================
+[Sun Apr  6 14:06:11 EDT 2014] Begin scraping Dept of Health website
+[Sun Apr  6 14:58:38 EDT 2014] Scrape complete
+[Sun Apr  6 14:58:38 EDT 2014] Purging existing database
+[Sun Apr  6 14:58:38 EDT 2014] Importing data into datastore
+[Sun Apr  6 14:58:38 EDT 2014] Performing post import task
+[Sun Apr  6 14:58:38 EDT 2014] Geocoding addresses
+[Sun Apr  6 14:58:38 EDT 2014] Post-import
+MongoDB shell version: 2.4.8
+connecting to: healthi
+Sun Apr  6 14:58:38.855 Error: couldn't connect to server 127.0.0.1:27017 at src/mongo/shell/mongo.js:145
+[Sun Apr  6 14:58:38 EDT 2014] Dumping healthi database to file
+[Sun Apr  6 14:58:38 EDT 2014] Pushing healthi to production
+[Sun Apr  6 14:58:39 EDT 2014] Cleanup
+[Sun Apr  6 14:58:39 EDT 2014] Done!
+=================== 04.06.14 Data Pull ===================
+[Sun Apr  6 16:08:45 EDT 2014] Begin scraping Dept of Health website
+[Sun Apr  6 16:25:38 EDT 2014] Scrape complete
+[Sun Apr  6 16:25:38 EDT 2014] Purging existing database
+[Sun Apr  6 16:25:38 EDT 2014] Importing data into datastore
+=================== 04.06.14 Data Pull ===================
+[Sun Apr  6 18:24:24 EDT 2014] Begin scraping Dept of Health website
+[Sun Apr  6 19:07:02 EDT 2014] Scrape complete
+[Sun Apr  6 19:07:02 EDT 2014] Purging existing database
+[Sun Apr  6 19:07:02 EDT 2014] Importing data into datastore
+[Sun Apr  6 19:07:06 EDT 2014] Performing post import task
+[Sun Apr  6 19:07:36 EDT 2014] Geocoding addresses
+[Sun Apr  6 19:07:37 EDT 2014] Post-import
+MongoDB shell version: 2.4.8
+connecting to: healthi
+Number of items in geotemp: 2751
+Number of items in inspection: 15040
+[Sun Apr  6 19:07:37 EDT 2014] Dumping healthi database to file
+[Sun Apr  6 19:07:38 EDT 2014] Pushing healthi to production
+[Sun Apr  6 19:11:04 EDT 2014] Cleanup
+[Sun Apr  6 19:11:04 EDT 2014] Done!

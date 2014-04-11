@@ -79,8 +79,19 @@ angular.module('myApp.controllers', [])
       $scope.establishment = $routeParams.establishment;
       $scope.address = $routeParams.address;
       $scope.inspections = [];
+      $scope.markers=[];
+      $scope.dc = {};
 
-  var seriesCreation = function(chartConfig,data){
+      var setMarkerLatLng = function(data){
+        $scope.markers = [{
+                    lat: data[0].lat,
+                    lng: data[0].lng,
+                    draggable: false
+              }];
+        $scope.dc = { lat: data[0].lat, lng: data[0].lng, zoom: 12 };
+      };
+
+    var seriesCreation = function(chartConfig,data){
       var criticalSeriesObj = [];
       var noncriticalSeriesObj = [];
       _.each(data,function(item){
@@ -123,6 +134,8 @@ angular.module('myApp.controllers', [])
           else { 
             _.each(data, function(item){ $scope.inspections.push(item); }); 
             seriesCreation($scope.chartConfig,data);
+            console.log(data);
+            setMarkerLatLng(data);
           }
         }).
         error(function (data, status, headers, config) {
@@ -139,6 +152,28 @@ angular.module('myApp.controllers', [])
       $scope.maxSize = 6;
       
       $scope.setPage = function (pageNo) { $scope.currentPage = pageNo; };
+      $scope.markers=[];
+      $scope.dc = {};
+      
+      var setMarkerLatLng = function(data){
+        var latCenter, lngCenter;
+        _.each(data, function(x) { 
+          if (! isNaN(parseFloat(x._id.lat)) && ! isNaN(parseFloat(x._id.lng))){
+          
+          $scope.markers.push(
+            {
+                    lat: x._id.lat,
+                    lng: x._id.lng,
+                    draggable: false,
+                    message: x._id.establishment_name
+              }
+            )
+        }
+        });
+        
+        //$scope.dc = { lat: data[0]._id.lat, lng: data[0]._id.lng, zoom: 12 };
+      };
+
 
       $scope.dc = { lat: 38.891121, lng: -77.041481, zoom: 12 };
       $scope.mapDefaults = {
@@ -154,6 +189,7 @@ angular.module('myApp.controllers', [])
           
           if (! data.length > 0) { console.log('No results for found'); }
           else { 
+            setMarkerLatLng(data);
             _.each(data, function(item){
               $scope.restaurants.push(item);
           });

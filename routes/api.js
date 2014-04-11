@@ -25,7 +25,9 @@ exports.search = function(req, res) {
 					_id: { 
 						establishment_name: "$establishment_name",
 	                    address: "$address",
-	                    city_state_zip : "$city_state_zip"
+	                    city_state_zip : "$city_state_zip",
+	                    lat: "$lat",
+	                    lng: "$lng"
                 	},
                 	number_of_reports: { $sum: 1 },
                		average_criticals : { $avg : "$critical_violations.total" },
@@ -185,7 +187,9 @@ exports.name = function(req, res) {
 		date_of_inspection: 1,
 		type_of_inspection: 1,
 		noncritical_violations: 1,
-		critical_violations: 1
+		critical_violations: 1,
+		lat: 1,
+		lng: 1
 	};
 	if (undefined != req.body.establishment_name) 
 		var q = Inspections.find({ establishment_name : req.body.establishment_name, address : req.body.address },returned_fields).limit(200);
