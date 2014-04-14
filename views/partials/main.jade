@@ -13,13 +13,13 @@
 					td 
 						a(href='establishment/{{i._id.establishment_name}}/{{i._id.address}}') {{i._id.establishment_name | properCase}}
 						br
-						{{i._id.address}}
+						|{{i._id.address}}
 						br
-						{{i._id.city_state_zip}}
+						|{{i._id.city_state_zip}}
 					td 
-						{{i.average_criticals | roundUp}} Critical
+						|{{i.average_criticals | roundUp}} Critical
 						br
-						{{i.average_noncriticals | roundUp}} Noncritical
+						|{{i.average_noncriticals | roundUp}} Noncritical
 					td {{i.recent_inspection | date:"MM/dd/yyyy" }}
 	.col-4.col-sm-4.col-lg-4
 		.well
@@ -50,13 +50,13 @@
 					td 
 						a(href='establishment/{{i.establishment_name}}/{{i.address}}') {{i.establishment_name | properCase}}
 						br
-						{{i.address}}
+						|{{i.address}}
 						br
-						{{i.city_state_zip}}
+						|{{i.city_state_zip}}
 					td 
-						{{i.critical_violations.total}} Critical
+						|{{i.critical_violations.total}} Critical
 						br
-						{{i.noncritical_violations.total}} Noncritical
+						|{{i.noncritical_violations.total}} Noncritical
 					td {{i.date_of_inspection | date:"MM/dd/yyyy"}}
 					td
 						a.btn.btn-danger(target='_blank' href='{{i.response_url}}') View
@@ -75,13 +75,13 @@
 					td 
 						a(href='establishment/{{i.establishment_name}}/{{i.address}}') {{i.establishment_name | properCase}}
 						br
-						{{i.address}}
+						|{{i.address}}
 						br
-						{{i.city_state_zip}}
+						|{{i.city_state_zip}}
 					td 
-						{{i.critical_violations.total}} Critical
+						|{{i.critical_violations.total}} Critical
 						br
-						{{i.noncritical_violations.total}} Noncritical
+						|{{i.noncritical_violations.total}} Noncritical
 					td {{i.date_of_inspection | date:"MM/dd/yyyy"}}
 					td
 						a.btn.btn-danger(target='_blank' href='{{i.response_url}}') View

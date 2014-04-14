@@ -34,16 +34,16 @@ hr
                 td 
                     a(href='establishment/{{r._id.establishment_name}}/{{r._id.address}}') {{r._id.establishment_name}}
                     br
-                    {{r._id.address}}
+                    | {{r._id.address}}
                     br
-                    {{r._id.city_state_zip}}
+                    | {{r._id.city_state_zip}}
                 td {{r.recent_inspection | date:"MM/dd/yyyy"}}
                 td {{r.number_of_reports}}
                 td {{r.average_criticals | roundUp }} Criticals
                     br
-                    {{r.average_noncriticals | roundUp }} Noncriticals
+                    | {{r.average_noncriticals | roundUp }} Noncriticals
                     br
-                    {{((r.total_crit_r + r.total_noncrit_r)/r.number_of_reports) | roundUp }} Repeat Violations
+                    | {{((r.total_crit_r + r.total_noncrit_r)/r.number_of_reports) | roundUp }} Repeat Violations
         pagination(total-items='restaurants.length' page='currentPage' max-size='maxSize' class='pagination-lg')
     .col-4.col-sm-4.col-lg-4
         leaflet(width='100%' height='519px' center='dc' markers='markers')
