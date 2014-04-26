@@ -182,7 +182,6 @@ angular.module('myApp.controllers', [])
         tileLayerOptions: { opacity: 0.9, detectRetina: true, reuseTiles: true },
         scrollWheelZoom: false
       };
-
       $scope.retrieveData = function(){
         $http.post('/find/',  {establishment_name: $routeParams.searchterm}).     
         success(function (data, status, headers, config) {
