@@ -9,11 +9,20 @@ var express = require('express'),
 	app = module.exports = express();
 
 
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    next();
+}
+
 app.configure(function(){
 	app.set('env','production');
 	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
+	app.use(allowCrossDomain);
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.static(path.join(__dirname, 'public')));
@@ -43,7 +52,8 @@ app.get('/worst/restaurantsavg', api.worstRestaurantsAvg);
 app.get('/worst/recentinspection', api.worstRecentInspections);
 app.get('/worst/inspections', api.worstInspections);
 app.get('/worst/repeatcriticals', api.worstRepeats);
-//app.get('/latlng',admin.addressLatLng);
+app.get('/latlng',admin.geocoding);
+app.get('/insert',admin.insertion);
 app.post('/name', api.name);
 app.post('/restaurantNames', api.restaurantNames);
 app.get('/partials/:name', routes.partials);
