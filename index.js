@@ -53,7 +53,7 @@ app.get('/worst/recentinspection', api.worstRecentInspections);
 app.get('/worst/inspections', api.worstInspections);
 app.get('/worst/repeatcriticals', api.worstRepeats);
 app.get('/latlng',admin.geocoding);
-app.get('/insert',admin.insertion);
+app.get('/yelpcode',admin.yelpBusinessCoding);
 app.post('/name', api.name);
 app.post('/restaurantNames', api.restaurantNames);
 app.get('/partials/:name', routes.partials);
