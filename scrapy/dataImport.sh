@@ -19,6 +19,9 @@ mongoimport --jsonArray --file ../geocoding/1391046983502.json -d healthi -c geo
 mongoimport --jsonArray --file ../geocoding/1391094811139.json -d healthi -c geotemp
 mongoimport --jsonArray --file ../geocoding/1391095425663.json -d healthi -c geotemp
 mongo healthi geocoding.js
+echo "[$(date)] Yelp business ID coding" >> $LOGFILE
+mongoimport -d healthi -c yelptemp --type csv --file ../yelpcoding/yelp.csv --headerline
+mongo healthi yelpcoding.js
 echo "[$(date)] Post-import" >> $LOGFILE
 mongo healthi postimport.js >> $LOGFILE
 echo "[$(date)] Dumping healthi database to file" >> $LOGFILE

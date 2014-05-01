@@ -24,36 +24,39 @@ exports.geocoding = function(req,res){
 	});
 }
 
-exports.insertion = function(req,res){
-	var pwd = fs.readdirSync('./geocoding/');
+exports.yelpBusinessCoding = function(req,res){
+	var yelp = require("yelp").createClient({
+	  consumer_key: "HMcwEHLw2Jq0_8-XyCdb7g", 
+	  consumer_secret: "lC1ED2xYxb06NRGpkqNf4lt7cvw",
+	  token: "PCsz8LpOyCr3Q7SPLYUpOg9O8znR2OzF",
+	  token_secret: "AoTZWo9ry4aeHFGFlnXCoCfs-58"
+	});
+
+	var q = Inspections.aggregate([
+		{ $match : { yelp_id: null } }, 
+		{ $group: {"_id": {establishment_name: '$establishment_name',address: "$address",city: "$city_state_zip"}} },
+		{ $limit: 1000 }
+	]);
 	
-	_.each(pwd,function(item){ 
-		if (item.substr(-4) == 'json' && item != 'package.json') {
-			var response = JSON.parse(fs.readFileSync('./geocoding/'+item,'utf8')); 
-			_.each(response.results,function(item){ 
-				if (item.response.results != undefined){
-					if (item.response.results.length > 0){ 
-						var query = item.query.split(",");
-						if (query.length == 3){
-							var csz = (query[1] +','+ query[2]).trim();
-							var addr = query[0];
+	q.exec(function (err,data){
+		var csv_string = '';
+		_.each(data,function(item){ 
+			var loc = item._id.address + ',' + item._id.city;
+			var t = item._id.establishment_name;
+			yelp.search({term: t,location: loc, limit: 1, sort: 1}, function(error, yelpData) {
+				if (yelpData != undefined){
+					if (yelpData.businesses.length > 0) {
+						var resp = yelpData.businesses[0].id;
+						if (error) {console.log(error); }
+						else { 
+							csv_string= t + ',' + loc + ',' + resp + '\n'; 
+							console.log(csv_string);
+							fs.appendFile('./yelpcoding/yelp.csv', csv_string, function (err) { if (err) return console.log(err); });
 						}
-						else {
-							var csz = (query[2] +','+ query[3]).trim();
-							var addr = query[0] +','+ query[1];
-						}			
-						var lati = parseFloat(item.response.results[0].location.lat);
-						var longi = parseFloat(item.response.results[0].location.lng);
-						Inspections.update({address: addr, city_state_zip: csz},{lat: lati, lng: longi}, { multi: true }, function (err, numberAffected, raw) {
-						  if (err) console.log(err)
-						  console.log('The number of updated documents was %d', numberAffected);
-						  console.log('The raw response from Mongo was ', raw);
-						});
 					}
 				}
 			});
-
-		}
+		});	
+	res.send('Response saved to yelp.csv');
 	});
-	res.send('Updates complete');
 }
