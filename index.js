@@ -50,6 +50,7 @@ app.get('/timeseries/violation',api.violationTimeseries);
 app.get('/latest', api.latest);
 app.get('/worst/restaurantsavg', api.worstRestaurantsAvg);
 app.get('/worst/recentinspection', api.worstRecentInspections);
+app.get('/yelpBiz/:yelp_id', api.yelpBiz);
 app.get('/worst/inspections', api.worstInspections);
 app.get('/worst/repeatcriticals', api.worstRepeats);
 app.get('/latlng',admin.geocoding);

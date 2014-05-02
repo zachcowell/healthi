@@ -1,6 +1,13 @@
 var Inspections = require('../models/inspections.js');
 var _ = require('underscore');
 var moment = require('moment');
+var yelp = require("yelp").createClient({
+	  consumer_key: "HMcwEHLw2Jq0_8-XyCdb7g", 
+	  consumer_secret: "lC1ED2xYxb06NRGpkqNf4lt7cvw",
+	  token: "PCsz8LpOyCr3Q7SPLYUpOg9O8znR2OzF",
+	  token_secret: "AoTZWo9ry4aeHFGFlnXCoCfs-58"
+	});
+
 
 /* API Helpers */
 var getOrObject = function (keywords){
@@ -16,6 +23,16 @@ var execQuery = function(q,res){
 	});
 }
 
+exports.yelpBiz = function(req,res){
+	var yelp_id = req.params.yelp_id;
+	
+	yelp.business(yelp_id, function(error, data) {
+		if(!error) res.send(data);
+		else res.send(error);
+	});
+	
+}
+
 exports.search = function(req, res) {
 	if (undefined != req.body.establishment_name){
 		var q = Inspections.aggregate([
@@ -27,7 +44,8 @@ exports.search = function(req, res) {
 	                    address: "$address",
 	                    city_state_zip : "$city_state_zip",
 	                    lat: "$lat",
-	                    lng: "$lng"
+	                    lng: "$lng",
+	                    yelp_id: "$yelp_id"
                 	},
                 	number_of_reports: { $sum: 1 },
                		average_criticals : { $avg : "$critical_violations.total" },
@@ -69,7 +87,8 @@ exports.worstRestaurantsAvg = function(req,res){
 				_id: { 
 					establishment_name: "$establishment_name",
 	                address: "$address",
-	                city_state_zip : "$city_state_zip"
+	                city_state_zip : "$city_state_zip",
+	                yelp_id: "$yelp_id"
 	        	},
 	        	number_of_reports: { $sum: 1 },
 	       		average_criticals : { $avg : "$critical_violations.total" },
@@ -91,7 +110,8 @@ exports.worstRecentInspections = function(req,res){
 		city_state_zip : 1,
 		"critical_violations.total" : 1,
 		"noncritical_violations.total" : 1,
-		date_of_inspection: 1
+		date_of_inspection: 1,
+		yelp_id : 1
 	};
 	var q = Inspections.find({
 		date_of_inspection: { 
@@ -114,7 +134,8 @@ exports.worstInspections = function(req,res){
 		"noncritical_violations.total" : 1,
 		"noncritical_violations.r" : 1,
 		"noncritical_violations.cos" : 1,
-		date_of_inspection: 1
+		date_of_inspection: 1,
+		yelp_id : 1
 	};
 	var q = Inspections.find({},returned_fields)
 	.sort({'critical_violations.total': -1})
@@ -135,7 +156,8 @@ exports.worstRepeats = function(req,res){
 		"noncritical_violations.total" : 1,
 		"noncritical_violations.r" : 1,
 		"noncritical_violations.cos" : 1,
-		date_of_inspection: 1
+		date_of_inspection: 1,
+		yelp_id : 1
 	};
 	var q = Inspections.find({},returned_fields)
 	.sort({'critical_violations.r': -1})
@@ -154,6 +176,7 @@ exports.keywordSearch = function(req, res) {
 		type_of_inspection: 1,
 		noncritical_violations: 1,
 		critical_violations: 1,
+		yelp_id : 1
 	};
 	
 	var q = Inspections.find({},returned_fields).limit(200);
@@ -166,7 +189,8 @@ exports.latest = function(req, res) {
 		response_url : 1,
 		establishment_name: 1,
 		address : 1,
-		date_of_inspection: 1
+		date_of_inspection: 1,
+		yelp_id : 1
 	};
 	var q = Inspections.find({},returned_fields).sort({'date_of_inspection': -1}).limit(10);
 	execQuery(q,res);
@@ -189,7 +213,8 @@ exports.name = function(req, res) {
 		noncritical_violations: 1,
 		critical_violations: 1,
 		lat: 1,
-		lng: 1
+		lng: 1,
+		yelp_id : 1
 	};
 	if (undefined != req.body.establishment_name) 
 		var q = Inspections.find({ establishment_name : req.body.establishment_name, address : req.body.address },returned_fields).limit(200);
