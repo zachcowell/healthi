@@ -43,7 +43,6 @@ db.once('open', function callback () { console.log('Database opened'); });
 
 
 app.get('/', routes.index);
-
 app.post('/keywordSearch', api.keywordSearch);
 app.post('/find', api.search);
 app.get('/timeseries/violation',api.violationTimeseries);
@@ -51,15 +50,17 @@ app.get('/latest', api.latest);
 app.get('/worst/restaurantsavg', api.worstRestaurantsAvg);
 app.get('/worst/recentinspection', api.worstRecentInspections);
 app.get('/yelpBiz/:yelp_id', api.yelpBiz);
+
+app.get('/observations/:reportId', api.observations);
+
 app.get('/worst/inspections', api.worstInspections);
 app.get('/worst/repeatcriticals', api.worstRepeats);
-app.get('/latlng',admin.geocoding);
-app.get('/yelpcode',admin.yelpBusinessCoding);
 app.post('/name', api.name);
 app.post('/restaurantNames', api.restaurantNames);
 app.get('/partials/:name', routes.partials);
-
 app.get('/metrics/incidentBreakdown',metrics.violation_breakdown)
+//app.get('/latlng',admin.geocoding);
+//app.get('/yelpcode',admin.yelpBusinessCoding);
 
 app.get('*', routes.index);
 

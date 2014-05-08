@@ -33,6 +33,19 @@ exports.yelpBiz = function(req,res){
 	
 }
 
+exports.observations = function(req,res){
+	var reportId = req.params.reportId;
+	
+	var returned_fields = {
+		observations : 1,
+		establishment_name: 1,
+		address: 1
+	};
+	var q = Inspections.find({ _id: reportId },returned_fields);
+
+	execQuery(q,res);
+}
+
 exports.search = function(req, res) {
 	if (undefined != req.body.establishment_name){
 		var q = Inspections.aggregate([
