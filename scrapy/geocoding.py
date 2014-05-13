@@ -27,14 +27,8 @@ class Geocoding(object):
 			data.append(self.get_google_lat_lng(inspection,self.geolocator))
 		self.write_results_to_csv(data)
 
-	def geocode_one(self):
-		geoRes = self.geolocator.geocode("475 L'ENFANT PLZ SW, Washington, DC 20024")
-		if geoRes is not None:
-			address,(latitude,longitude)=geoRes
-
 	def get_unique_addresses_needing_geocode(self,inspections):
 		return inspections.aggregate([
-				{ "$limit" : 100 },
 				{ "$match" : { "lat": None } }, 
 				{ "$group": {"_id": {"address": "$address","city_state_zip":"$city_state_zip"} }}
 			])["result"]
@@ -51,6 +45,7 @@ class Geocoding(object):
 		geoRes = geolocator.geocode(addr)
 		if geoRes is not None: 
 			address, (latitude, longitude) = geoRes
+			#print [idAddress,idCSZ,latitude,longitude]
 			return [idAddress,idCSZ,latitude,longitude]
 
 	def write_results_to_csv(self,data):
@@ -58,6 +53,7 @@ class Geocoding(object):
 		with open(path, "wb") as csv_file:
 			writer = csv.writer(csv_file,delimiter='|')
 			for line in data:
+				print line
 				writer.writerow(line)
 
 	def read_results_from_csv(self):
@@ -75,5 +71,5 @@ class Geocoding(object):
 		self.inspections.update({"address":address,"city_state_zip": city_state_zip},{"$set":{"lat":lat,"lng":lng}},multi=True,upsert=True)
 
 g = Geocoding()
-g.read_results_from_csv()
-#g.geocode()
+#g.read_results_from_csv()
+g.geocode()
