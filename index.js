@@ -59,7 +59,7 @@ app.post('/name', api.name);
 app.post('/restaurantNames', api.restaurantNames);
 app.get('/partials/:name', routes.partials);
 app.get('/metrics/incidentBreakdown',metrics.violation_breakdown)
-//app.get('/latlng',admin.geocoding);
+
 //app.get('/yelpcode',admin.yelpBusinessCoding);
 
 app.get('*', routes.index);
