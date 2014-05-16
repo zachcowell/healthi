@@ -13,12 +13,7 @@ mongoimport --file $DATAFILE -d healthi -c inspections
 echo "[$(date)] Performing post import task" >> $LOGFILE
 mongo healthi import.js
 echo "[$(date)] Geocoding addresses" >> $LOGFILE
-mongoimport --jsonArray --file ../geocoding/1391036161126.json -d healthi -c geotemp
-mongoimport --jsonArray --file ../geocoding/1391046415342.json -d healthi -c geotemp
-mongoimport --jsonArray --file ../geocoding/1391046983502.json -d healthi -c geotemp
-mongoimport --jsonArray --file ../geocoding/1391094811139.json -d healthi -c geotemp
-mongoimport --jsonArray --file ../geocoding/1391095425663.json -d healthi -c geotemp
-mongo healthi geocoding.js
+python geocoding.py
 echo "[$(date)] Yelp business ID coding" >> $LOGFILE
 mongoimport -d healthi -c yelptemp --type csv --file ../yelpcoding/yelp.csv --headerline
 mongo healthi yelpcoding.js

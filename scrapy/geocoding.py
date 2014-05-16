@@ -24,7 +24,9 @@ class Geocoding(object):
 		data= [["address","city_state_zip","latitude","longitude"]]
 		
 		for inspection in unique_addresses_needing_geocode:
-			data.append(self.get_google_lat_lng(inspection,self.geolocator))
+			item = self.get_google_lat_lng(inspection,self.geolocator)
+			if item is not None:
+				data.append(item)
 		self.write_results_to_csv(data)
 
 	def get_unique_addresses_needing_geocode(self,inspections):
@@ -45,7 +47,7 @@ class Geocoding(object):
 		geoRes = geolocator.geocode(addr)
 		if geoRes is not None: 
 			address, (latitude, longitude) = geoRes
-			#print [idAddress,idCSZ,latitude,longitude]
+			print [idAddress,idCSZ,latitude,longitude]
 			return [idAddress,idCSZ,latitude,longitude]
 
 	def write_results_to_csv(self,data):
@@ -56,20 +58,23 @@ class Geocoding(object):
 				print line
 				writer.writerow(line)
 
-	def read_results_from_csv(self):
+	def perform_lat_lng_inserts(self):
 		all_CSVs= glob.glob("geocoding/*.csv")
 		for some_csv in all_CSVs:
 			with open(some_csv, 'rb') as f:
 				reader = csv.reader(f,delimiter='|')
-				rownum = 0
-				for r in reader:
-					rownum += 1
-					if rownum > 0:
-						self.update_address_with_lat_lng(r[0],r[1],r[2],r[3])
+				self.read_results_from_csv(reader)
+
+	def read_results_from_csv(self,reader):						
+		rownum = 0
+		for r in reader:
+			rownum += 1
+			if rownum > 0:
+				self.update_address_with_lat_lng(r[0],r[1],r[2],r[3])
 
 	def update_address_with_lat_lng(self,address,city_state_zip,lat,lng):
 		self.inspections.update({"address":address,"city_state_zip": city_state_zip},{"$set":{"lat":lat,"lng":lng}},multi=True,upsert=True)
 
 g = Geocoding()
-#g.read_results_from_csv()
-g.geocode()
+g.perform_lat_lng_inserts()
+#g.geocode()
