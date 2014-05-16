@@ -39,7 +39,8 @@ exports.observations = function(req,res){
 	var returned_fields = {
 		observations : 1,
 		establishment_name: 1,
-		address: 1
+		address: 1,
+		response_url: 1		
 	};
 	var q = Inspections.find({ _id: reportId },returned_fields);
 
