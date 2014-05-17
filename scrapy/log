@@ -305,3 +305,18 @@ Number of items in inspection: 11312
 [Tue May 13 21:15:53 EDT 2014] Pushing healthi to production
 [Tue May 13 21:18:25 EDT 2014] Cleanup
 [Tue May 13 21:18:26 EDT 2014] Done!
+=================== 05.16.14 Data Pull ===================
+[Fri May 16 16:49:50 EDT 2014] Begin scraping Dept of Health website
+[Fri May 16 16:49:54 EDT 2014] Scrape complete
+[Fri May 16 16:49:54 EDT 2014] Purging existing database
+[Fri May 16 16:49:54 EDT 2014] Importing data into datastore
+[Fri May 16 16:49:54 EDT 2014] Performing post import task
+[Fri May 16 16:49:54 EDT 2014] Geocoding addresses
+[Fri May 16 16:49:56 EDT 2014] Yelp business ID coding
+[Fri May 16 16:49:57 EDT 2014] Post-import
+MongoDB shell version: 2.4.8
+connecting to: healthi
+Number of items in geotemp: 0
+Number of items in inspection: 2689
+[Fri May 16 16:49:57 EDT 2014] Cleanup
+[Fri May 16 16:49:57 EDT 2014] Done!

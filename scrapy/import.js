@@ -1,5 +1,5 @@
 db.inspections.remove({establishment_name: ""});
-db.inspections.update({},{$set: {lat: null,lng:null}},{multi:true});
+//db.inspections.update({},{$set: {loc: {lon: null,lat:null}}} ,{multi:true});
 db.inspections.update({},{$set: {yelp_id: null}},{multi:true});
 
 db.inspections.find({}).forEach( function (x) {   

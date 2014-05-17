@@ -73,7 +73,7 @@ class Geocoding(object):
 				self.update_address_with_lat_lng(r[0],r[1],r[2],r[3])
 
 	def update_address_with_lat_lng(self,address,city_state_zip,lat,lng):
-		self.inspections.update({"address":address,"city_state_zip": city_state_zip},{"$set":{"lat":lat,"lng":lng}},multi=True,upsert=True)
+		self.inspections.update({"address":address,"city_state_zip": city_state_zip},{"$set":{"loc":{"lon":lng,"lat":lat}}},multi=True,upsert=True)
 
 g = Geocoding()
 g.perform_lat_lng_inserts()
