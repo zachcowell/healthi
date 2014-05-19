@@ -31,7 +31,7 @@ class Geocoding(object):
 
 	def get_unique_addresses_needing_geocode(self,inspections):
 		return inspections.aggregate([
-				{ "$match" : { "lat": None } }, 
+				{ "$match" : { "loc.lat": None } }, 
 				{ "$group": {"_id": {"address": "$address","city_state_zip":"$city_state_zip"} }}
 			])["result"]
 
@@ -51,7 +51,8 @@ class Geocoding(object):
 			return [idAddress,idCSZ,latitude,longitude]
 
 	def write_results_to_csv(self,data):
-		path= time.strftime("geocoding/%m%d%Y.csv")
+		epochs = time.time()
+		path= "geocoding/"+str(epochs)+".csv"
 		with open(path, "wb") as csv_file:
 			writer = csv.writer(csv_file,delimiter='|')
 			for line in data:
@@ -74,6 +75,7 @@ class Geocoding(object):
 
 	def update_address_with_lat_lng(self,address,city_state_zip,lat,lng):
 		self.inspections.update({"address":address,"city_state_zip": city_state_zip},{"$set":{"loc":{"lon":lng,"lat":lat}}},multi=True,upsert=True)
+
 
 g = Geocoding()
 g.perform_lat_lng_inserts()

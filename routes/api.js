@@ -190,10 +190,12 @@ exports.keywordSearch = function(req, res) {
 		type_of_inspection: 1,
 		noncritical_violations: 1,
 		critical_violations: 1,
-		yelp_id : 1
+		yelp_id : 1,
+		observations:1
 	};
 	
-	var q = Inspections.find({},returned_fields).limit(200);
+	var q = Inspections.find({},returned_fields).limit(30)
+						.sort({date_of_inspection: -1});
 	if (req.body.keywords.length > 0) q = q.or(getOrObject(req.body.keywords));
 	execQuery(q,res);
 }
@@ -226,8 +228,8 @@ exports.name = function(req, res) {
 		type_of_inspection: 1,
 		noncritical_violations: 1,
 		critical_violations: 1,
-		lat: 1,
-		lng: 1,
+		"loc.lat": 1,
+		"loc.lon": 1,
 		yelp_id : 1
 	};
 	if (undefined != req.body.establishment_name) 

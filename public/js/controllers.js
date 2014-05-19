@@ -42,6 +42,16 @@ angular.module('myApp.controllers', [])
         loading: false
     };
      
+      /*var words = ['dropping','roach','mice','rodent','feces','mouse'];
+        $http.post('/keywordSearch/',  {keywords: words}).     
+        success(function (data, status, headers, config) {
+          if (! data.length > 0) { console.log('No results for found'); }
+          else { console.log(data); }      
+        }).
+        error(function (data, status, headers, config) {
+          $scope.name = 'Error!'
+        });*/
+
   var seriesCreation = function(chartConfig){
      return function(data){
       var seriesObj = [];
@@ -198,14 +208,5 @@ angular.module('myApp.controllers', [])
         error(function (data, status, headers, config) {
           $scope.name = 'Error!'
         });
-        /*var words = ['dropping','roach','mice','rodent','feces','mouse'];
-        $http.post('/keywordSearch/',  {keywords: words}).     
-        success(function (data, status, headers, config) {
-          if (! data.length > 0) { console.log('No results for found'); }
-          else { $scope.restaurants = data; $scope.filteredItems = $scope.restaurants; }      
-        }).
-        error(function (data, status, headers, config) {
-          $scope.name = 'Error!'
-        });*/
     }();
   });

@@ -320,3 +320,37 @@ Number of items in geotemp: 0
 Number of items in inspection: 2689
 [Fri May 16 16:49:57 EDT 2014] Cleanup
 [Fri May 16 16:49:57 EDT 2014] Done!
+=================== 05.17.14 Data Pull ===================
+[Sat May 17 23:12:33 EDT 2014] Begin scraping Dept of Health website
+[Sat May 17 23:12:35 EDT 2014] Scrape complete
+[Sat May 17 23:12:35 EDT 2014] Purging existing database
+[Sat May 17 23:12:35 EDT 2014] Importing data into datastore
+[Sat May 17 23:12:35 EDT 2014] Performing post import task
+[Sat May 17 23:12:35 EDT 2014] Geocoding addresses
+[Sat May 17 23:12:38 EDT 2014] Yelp business ID coding
+[Sat May 17 23:12:38 EDT 2014] Post-import
+MongoDB shell version: 2.4.8
+connecting to: healthi
+Number of items in geotemp: 0
+Number of items in inspection: 2685
+[Sat May 17 23:12:38 EDT 2014] Dumping healthi database to file
+[Sat May 17 23:12:38 EDT 2014] Pushing healthi to production
+[Sat May 17 23:12:38 EDT 2014] Cleanup
+[Sat May 17 23:12:38 EDT 2014] Done!
+=================== 05.17.14 Data Pull ===================
+[Sat May 17 23:15:37 EDT 2014] Begin scraping Dept of Health website
+[Sun May 18 00:06:57 EDT 2014] Scrape complete
+[Sun May 18 00:06:57 EDT 2014] Purging existing database
+[Sun May 18 00:06:58 EDT 2014] Importing data into datastore
+[Sun May 18 00:07:01 EDT 2014] Performing post import task
+[Sun May 18 00:07:25 EDT 2014] Geocoding addresses
+[Sun May 18 00:07:45 EDT 2014] Yelp business ID coding
+[Sun May 18 00:07:46 EDT 2014] Post-import
+MongoDB shell version: 2.4.8
+connecting to: healthi
+Number of items in geotemp: 0
+Number of items in inspection: 11884
+[Sun May 18 00:07:46 EDT 2014] Dumping healthi database to file
+[Sun May 18 00:07:47 EDT 2014] Pushing healthi to production
+[Sun May 18 00:10:21 EDT 2014] Cleanup
+[Sun May 18 00:10:21 EDT 2014] Done!
