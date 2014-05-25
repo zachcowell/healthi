@@ -68,7 +68,7 @@ exports.search = function(req, res) {
                		total_noncrit_r : { $sum : "$noncritical_violations.r" },
                		recent_inspection : { $last : "$date_of_inspection" }
                 } }
-            ]);
+            ]).limit(25);
 	}
 	execQuery(q,res);
 }
@@ -181,6 +181,8 @@ exports.worstRepeats = function(req,res){
 
 
 exports.keywordSearch = function(req, res) {
+	var pageSize = 20;
+	var pageNum = req.body.pageNum;
 	var returned_fields = {
 		response_url : 1,
 		establishment_name: 1,
@@ -194,8 +196,10 @@ exports.keywordSearch = function(req, res) {
 		observations:1
 	};
 	
-	var q = Inspections.find({},returned_fields).limit(30)
-						.sort({date_of_inspection: -1});
+	var q = Inspections.find({},returned_fields)
+						.sort({date_of_inspection: -1})
+						.skip(pageNum * pageSize)
+						.limit(pageSize);
 	if (req.body.keywords.length > 0) q = q.or(getOrObject(req.body.keywords));
 	execQuery(q,res);
 }
