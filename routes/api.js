@@ -95,7 +95,7 @@ exports.violationTimeseries = function(req, res) {
 
 exports.worstRestaurantsAvg = function(req,res){
 	var q = Inspections.aggregate([
-		{ $match : { date_of_inspection: { $gt: new Date(moment().subtract('days', 365).format()) } } }, 
+		//{ $match : { date_of_inspection: { $gt: new Date(moment().subtract('days', 365).format()) } } }, 
 		{ $group: 
 			{ 
 				_id: { 
