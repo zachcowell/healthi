@@ -67,11 +67,11 @@ class Geocoding(object):
 				self.read_results_from_csv(reader)
 
 	def read_results_from_csv(self,reader):						
-		rownum = 0
+		rownum = -1
 		for r in reader:
 			rownum += 1
 			if rownum > 0:
-				self.update_address_with_lat_lng(r[0],r[1],r[2],r[3])
+				self.update_address_with_lat_lng(r[0],r[1],float(r[2]),float(r[3]))
 
 	def update_address_with_lat_lng(self,address,city_state_zip,lat,lng):
 		self.inspections.update({"address":address,"city_state_zip": city_state_zip},{"$set":{"loc":{"lon":lng,"lat":lat}}},multi=True,upsert=True)
@@ -79,4 +79,5 @@ class Geocoding(object):
 
 g = Geocoding()
 g.perform_lat_lng_inserts()
-#g.geocode()
+g.geocode()
+g.perform_lat_lng_inserts()

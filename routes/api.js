@@ -1,4 +1,5 @@
 var Inspections = require('../models/inspections.js');
+var Pests = require('../models/pests.js');
 var _ = require('underscore');
 var moment = require('moment');
 var yelp = require("yelp").createClient({
@@ -179,6 +180,24 @@ exports.worstRepeats = function(req,res){
 	execQuery(q,res);
 }
 
+exports.pestSearch = function(req, res) {
+	var pageSize = 20;
+	var pageNum = req.body.pageNum;
+
+	var returned_fields = {
+		establishment_name: 1,
+		address: 1,
+		city_state_zip: 1,
+		date_of_inspection: 1,
+		observation:1
+	};
+	
+	var q = Pests.find({},returned_fields)
+						.sort({date_of_inspection: -1})
+						.skip(pageNum * pageSize)
+						.limit(pageSize);
+	execQuery(q,res);
+}
 
 exports.keywordSearch = function(req, res) {
 	var pageSize = 20;
