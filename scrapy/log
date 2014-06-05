@@ -354,3 +354,44 @@ Number of items in inspection: 11884
 [Sun May 18 00:07:47 EDT 2014] Pushing healthi to production
 [Sun May 18 00:10:21 EDT 2014] Cleanup
 [Sun May 18 00:10:21 EDT 2014] Done!
+=================== 06.03.14 Data Pull ===================
+[Tue Jun  3 22:02:17 EDT 2014] Begin scraping Dept of Health website
+[Tue Jun  3 22:21:47 EDT 2014] Scrape complete
+[Tue Jun  3 22:21:47 EDT 2014] Purging existing database
+[Tue Jun  3 22:21:47 EDT 2014] Importing data into datastore
+[Tue Jun  3 22:21:48 EDT 2014] Performing post import task
+[Tue Jun  3 22:21:48 EDT 2014] Geocoding addresses
+[Tue Jun  3 22:21:48 EDT 2014] Yelp business ID coding
+[Tue Jun  3 22:21:48 EDT 2014] Post-import
+MongoDB shell version: 2.4.8
+connecting to: healthi
+Tue Jun  3 22:21:48.338 Error: couldn't connect to server 127.0.0.1:27017 at src/mongo/shell/mongo.js:145
+[Tue Jun  3 22:21:48 EDT 2014] Dumping healthi database to file
+[Tue Jun  3 22:21:48 EDT 2014] Pushing healthi to production
+[Tue Jun  3 22:21:49 EDT 2014] Cleanup
+[Tue Jun  3 22:21:49 EDT 2014] Done!
+=================== 06.03.14 Data Pull ===================
+[Tue Jun  3 22:23:09 EDT 2014] Begin scraping Dept of Health website
+[Tue Jun  3 22:38:20 EDT 2014] Scrape complete
+[Tue Jun  3 22:38:20 EDT 2014] Purging existing database
+[Tue Jun  3 22:38:20 EDT 2014] Importing data into datastore
+[Tue Jun  3 22:38:21 EDT 2014] Performing post import task
+[Tue Jun  3 22:38:25 EDT 2014] Geocoding addresses
+[Tue Jun  3 22:38:25 EDT 2014] Yelp business ID coding
+=================== 06.04.14 Data Pull ===================
+[Wed Jun  4 18:23:27 EDT 2014] Begin scraping Dept of Health website
+[Wed Jun  4 19:05:50 EDT 2014] Scrape complete
+[Wed Jun  4 19:05:50 EDT 2014] Purging existing database
+[Wed Jun  4 19:05:50 EDT 2014] Importing data into datastore
+[Wed Jun  4 19:05:54 EDT 2014] Performing post import task
+[Wed Jun  4 19:06:19 EDT 2014] Geocoding addresses
+[Wed Jun  4 19:06:19 EDT 2014] Yelp business ID coding
+[Wed Jun  4 19:06:20 EDT 2014] Post-import
+MongoDB shell version: 2.4.8
+connecting to: healthi
+Number of items in geotemp: 0
+Number of items in inspection: 9984
+[Wed Jun  4 19:06:20 EDT 2014] Dumping healthi database to file
+[Wed Jun  4 19:06:20 EDT 2014] Pushing healthi to production
+[Wed Jun  4 19:08:36 EDT 2014] Cleanup
+[Wed Jun  4 19:08:36 EDT 2014] Done!

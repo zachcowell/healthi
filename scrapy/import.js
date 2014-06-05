@@ -1,6 +1,10 @@
 db.inspections.remove({establishment_name: ""});
+db.inspections.remove({establishment_name: null});
+
+
 //db.inspections.update({},{$set: {loc: {lon: null,lat:null}}} ,{multi:true});
 db.inspections.update({},{$set: {yelp_id: null}},{multi:true});
+var pestObservations = [];
 
 db.inspections.find({}).forEach( function (x) {   
  	if (typeof x.critical_violations != 'undefined' ){
@@ -35,9 +39,34 @@ db.inspections.find({}).forEach( function (x) {
 		x.loc.lon = parseFloat(x.loc.lon);
 	}
 
+	/* Clean up for proper linking */
+	if (x.establishment_name.indexOf("/") > -1){ x.establishment_name= x.establishment_name.replace(/\//g,' '); }
+	if (x.address.indexOf("/") > -1){ x.address= x.address.replace(/\//g,' '); }
+	if (x.city_state_zip.indexOf("/") > -1){ x.city_state_zip= x.city_state_zip.replace(/\//g,' '); }
+	if (x.establishment_name.indexOf("#") > -1){ x.establishment_name= x.establishment_name.replace(/#/g,' '); }
+	if (x.address.indexOf("#") > -1){ x.address= x.address.replace(/#/g,' '); }
+	if (x.city_state_zip.indexOf("#") > -1){ x.city_state_zip= x.city_state_zip.replace(/#/g,' '); }
+
+	/* Populate Pest table for quick access */
+	x.observations.forEach(function(obs){  
+		['dropping','roach','mice','rodent','feces','mouse','flies','gnats'].forEach(function(keyword){ 
+			if (obs.observation.indexOf(keyword) > -1 ) { 
+				pestObservations.push({
+					establishment_name: x.establishment_name,
+					observation: obs.observation,
+					address: x.address,
+					city_state_zip: x.city_state_zip,
+					date_of_inspection: x.date_of_inspection
+				});
+			}
+		})
+	})
+
   	x.date_of_inspection = new Date(x.date_of_inspection);
   	x.cfpm_expiration_date = new Date(x.cfpm_expiration_date);
   	x.license_period_start = new Date(x.license_period_start);
   	x.license_period_end = new Date(x.license_period_end);
   	db.inspections.save(x);
 });
+
+db.pests.insert(pestObservations);
