@@ -6,10 +6,11 @@ var express = require('express'),
 	admin = require('./routes/administration.js'),
 	http = require('http'),
 	path = require('path'),
-	credentials = require('./routes/credentials.js'),
 	app = module.exports = express();
 
 var env = 'production';
+
+var mongoCredentials = process.env.mongoCredentials || 'mongodb://localhost/healthi';
 
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -31,7 +32,7 @@ app.configure(function(){
 });
 
 if (env === 'development') { app.use(express.errorHandler()); }
-mongoose.connect(credentials.getKey(env));
+mongoose.connect(mongoCredentials);
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
