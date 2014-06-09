@@ -10,7 +10,7 @@ var express = require('express'),
 
 var env = 'production';
 
-var mongoCredentials = process.env.mongoCredentials || 'mongodb://localhost/healthi';
+var mongoCredentials = process.env.MONGOCRED || 'mongodb://localhost/healthi';
 
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
